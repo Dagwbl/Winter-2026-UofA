@@ -1,0 +1,294 @@
+---
+course: "Intro to Finite Element Method (CIV E – 665)"
+title: "Assignment No. 1"
+author: "Jinpeng Zhu"
+date: today
+assignment: "Assignment No. 1"
+student-id: "1907843"
+format:
+  pdf:
+    template-partials: 
+      - ../../Assets/template/uofa-eng-assignment-partial/title.tex
+    pdf-engine: xelatex
+    fig-pos: H
+    logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
+    keep-tex: true
+    number-sections: true
+    include-in-header:
+      - text: |
+          \numberwithin{equation}{section}
+jupyter: python3
+---
+
+# Solution to Question 1
+
+First, integrate with respect to x:
+
+$$
+\frac{\mathrm{d}T}{\mathrm{d}x}=C_1
+$$ {#eq-1}
+
+Where $C_1$ is an integration constant representing the temperature gradient.
+
+Then, integrate with respect to $x$ again:
+
+$$
+T(x)=C_1 x + C2
+$$ {#eq-2}
+
+Where $C_2$ is a second integration constant.
+
+@eq-2 is the general solution.
+
+## Case (i) Temperature specified at the two boundaries
+
+Based on this case, there are two fixed temperatures at both ends of the wall. Therefore, we can get two boundary conditions: 
+
+1. At $x=0$, $T(0)=80$
+2. At $x = 1$, $T(1)=150$
+
+First, apply the first boundary condition to @eq-2, we can get:
+
+$$
+T(0)=C_1\times 0+C_2\\
+\Rightarrow C_2=80
+$$
+
+Then, apply the second boundary condition to  @eq-2 using $C_2=80$,
+
+$$
+\begin{aligned}
+T(1)&=C_1\times 1+80=150\\
+&\Rightarrow C_1 = 70
+\end{aligned}
+$$
+
+So, 
+
+$$
+T(x)=70 x + 80
+$$ {#eq-3}
+
+## Case (ii) Temperature specified at $x=0$ and Gradient specified at $x=1$
+
+In this case,  the right side is insulated, which means no heat flows through it. We have these two boundary conditions:
+
+1. At $x=0$, $T(0)=80$
+2. At $x = 1$, $\frac{\mathrm{d}T}{\mathrm{d}x}=0$
+
+First, same as case (i), apply the first boundary condition to @eq-2, we can get:
+$$
+\begin{aligned}
+T(0)&=C_1\times 0+C_2\\
+&\Rightarrow C_2=80
+\end{aligned}
+$$
+Then, applying the second boundary condition with @eq-1, we can get $C_1=0$.
+
+Therefore, substituting the constants back into @eq-2, the final solution is:
+$$
+T(x)=80
+$$
+Which means the entire wall eventually reaches a uniform temperature of 80 °C.
+
+\newpage
+# Solution to Question 2
+
+Known by the question, the governing equation is below
+$$
+-\frac{d}{dx} \left( EA \frac{du}{dx} \right) = b(x)
+$$ {#eq-2-1}
+Since the body force is assumed to be zero, @eq-2-1 becomes
+$$
+-\frac{d}{dx} \left( EA \frac{du}{dx} \right) = 0
+$$ {#eq-2-2}
+First, integrate both sides with respect to $x$
+$$
+EA(x) \frac{du}{dx} = C_1
+$$
+Based on the internal axial force is defined as stress times area, or $P(x)=\sigma A$, since $\sigma = E \epsilon$ and $\epsilon=\frac{\mathrm{d}u}{\mathrm{d}x}$, so we can get $$P(x) = EA \frac{du}{dx}$$
+
+Comparing $C_1$ and $P(x)$, and no body forces, we can infer $F=P(x)=C_1$, right now
+$$
+EA(x) \frac{du}{dx} = F
+$$
+Rearrange the equation to solve for the strain $\frac{du}{dx}$, and substitute the given area function $A(x)=A_0(1+\frac{x}{L})$:
+$$
+\begin{aligned}
+\frac{du}{dx} &= \frac{F}{E A(x)}\\
+&= \frac{F}{E A_0 \left(1 + \frac{x}{L}\right)}
+\end{aligned}
+$$
+Integrate both sides with respect to $x$ to get $u(x)$
+$$
+\begin{aligned}
+u(x) &= \int \frac{F}{E A_0 \left(1 + \frac{x}{L}\right)} dx\\
+ &= \frac{F}{E A_0} \int \frac{1}{1 + \frac{x}{L}} dx
+\end{aligned}
+$$
+To evaluate the integral $\int \frac{1}{1 + \frac{x}{L}} dx$, recall that $\int \frac{1}{ax+b} dx = \frac{1}{a}\ln(ax+b)$. Here, $a = \frac{1}{L}$.
+$$
+\begin{aligned}
+u(x) &= \frac{F}{E A_0} \left[ L \cdot \ln\left(1 + \frac{x}{L}\right) \right] + C_2\\
+&= \frac{FL}{E A_0} \ln\left(1 + \frac{x}{L}\right) + C_2
+\end{aligned}
+$$
+Finally, apply the boundary condition of the left end: at $x=0,u(x)=0$
+$$
+\begin{aligned}
+0 &= \frac{FL}{E A_0} \ln\left(1 + \frac{0}{L}\right) + C_2\\
+&= \frac{FL}{E A_0} \ln(1) + C_2\\
+&\Rightarrow C_2=0
+\end{aligned}
+$$
+So,
+$$
+u(x) = \frac{FL}{EA_0} \ln\left(1 + \frac{x}{L}\right)
+$$
+
+\newpage
+# Solution to Question 3
+
+## Find the expression for $w(x)$
+
+The load diagram shows that there is a trapezoidal distributed load on the beam, so the load function varies linearly with x. Assume $w(x)=ax+b$.
+
+Based on the question, $w_1=-50$ and $w_2=-1000$
+$$
+\begin{cases}-50=a\times 0 +b\\
+-1000=a\times L +b\\
+\end{cases}
+\Rightarrow
+\begin{cases}
+a = \frac{-950}{L}\\
+b = -50
+\end{cases}
+$$
+Therefore, 
+$$
+w(x)=\frac{-950}{L}x-50
+$$ {#eq-3-1}
+
+## Mathematical expressions of the boundary conditions
+
+At the left fixed end ($x=0$), the displacement is zero, and the slope is zero.
+$$
+y(0) = 0
+$$ {#eq-bc-y}
+$$
+\theta(0) = \frac{dy}{dx}\bigg|_{x=0} = 0
+$${#eq-bc-theta}
+
+At the right free end ($x=L$), the beam is free to move, so it has no internal forces, which means the bending moment and shear force are both zero.
+
+Bending Moment: 
+$$
+M(L) = EI \frac{d^2y}{dx^2}\bigg|_{x=L} = 0
+$$ {#eq-bc-m}
+
+
+Shear Force: 
+$$
+V(L) = EI \frac{d^3y}{dx^3}\bigg|_{x=L} = 0
+$$ {#eq-bc-sf}
+
+## Solve for $y(x)$
+
+The parameters follow are given: $EI = 1 \times 10^6 \text{ Nm}^2$ and $L = 1 \text{ m}$
+
+Substitute $L=1$ into @eq-3-1 from part i:
+$$
+w(x) = -950x - 50
+$$
+Since $EI \frac{d^4y}{dx^4} = w(x)$, the $y(x)$ can be obtained after integrating this equation four times.
+
+Applying known boundary conditions to find the constants of integration
+
+Comparing $EI \frac{d^4y}{dx^4} = w(x)$ and $V(x) = EI \frac{d^3y}{dx^3}$, the relationship between $V(x)$ and $w(x)$ can be found:
+$$
+\begin{aligned}
+\frac{dV}{dx} &= \frac{d}{dx} \left( EI \frac{d^3y}{dx^3} \right) \\
+&= EI \frac{d^4y}{dx^4}=w(x)
+\end{aligned}
+$$
+
+so,
+$$
+\begin{aligned}
+V(x) &= \int (-950x - 50) \, dx \\
+&= -475x^2 - 50x + C_1
+\end{aligned}
+$$
+Apply boundary condition @eq-bc-sf
+$$
+\begin{aligned}
+V(L)&=-475(1)^2 - 50(1) + C_1 = 0\\
+&\implies -525 + C_1 = 0 \\
+&\implies C_1 = 525
+\end{aligned}
+$$
+so, 
+$$
+V(x) = -475x^2 - 50x + 525
+$$
+Through integrating $V(x)$, $M(x)$ can be obtained,
+$$
+\begin{aligned}
+M(x)&=\int V(x)dx=\int (-475x^2 - 50x + 525) dx\\
+&=\frac{-475}{3}x^3-25x^2+525x+C_2
+\end{aligned}
+$$
+Apply boundary condition @eq-bc-m,
+$$
+\begin{aligned}
+-\frac{475}{3}\times 1^3 - 25\times 1^2 + 525\times 1 + C_2 &= 0\\
+\implies C_2&=-\frac{1025}{3}
+\end{aligned}
+$$
+so,
+$$
+\begin{aligned}
+M(x)&=\frac{-475}{3}x^3-25x^2+525x-\frac{1025}{3}
+\end{aligned}
+$$
+Through integrating $\frac{M(x)}{EI}$, $\theta(x)$ can be obtained,
+$$
+\begin{aligned}
+\theta(x) &= \frac{\int \left(-\frac{475}{3}x^3 - 25x^2 + 525x - \frac{1025}{3}\right) \, dx}{EI} \\
+&= \frac{-\frac{475}{12}x^4 - \frac{25}{3}x^3 + \frac{525}{2}x^2 - \frac{1025}{3}x + C_3}{EI}
+\end{aligned}
+$$
+Apply boundary condition @eq-bc-theta, $C_3=0$ can be obtained, so,
+$$
+\theta(x)= \frac{-\frac{475}{12}x^4 - \frac{25}{3}x^3 + \frac{525}{2}x^2 - \frac{1025}{3}x}{1\times10^6}
+$$
+Integrate $\theta(x)$ with respect to $x$,
+$$
+\begin{aligned}
+y(x)&=\int \theta(x)\, dx = \frac{-\frac{475}{60}x^5 - \frac{25}{12}x^4 + \frac{525}{6}x^3 - \frac{1025}{6}x^2 + C_4}{EI}
+\end{aligned}
+$$
+Apply boundary condition $y(0)=0$,  infer $C_4$=0, so
+$$
+y(x)=\frac{-\frac{475}{60}x^5 - \frac{25}{12}x^4 + \frac{525}{6}x^3 - \frac{1025}{6}x^2}{1\times10^6}
+$$
+
+## Plot $y(x)$
+
+use the Matplotlib module of python, $y(x)$ is shown as @fig-y
+```{python}
+#| label: fig-y
+#| fig-cap: "Deflection curve of the beam $y(x)$, in meters"
+import numpy as np
+import matplotlib.pyplot as plt
+x = np.linspace(-0,1,1000)
+y = (-475/60*x**5 - 25/12*x**4 + 525/6*x**3 - 1025/6*x**2)/(1e6)
+plt.figure(figsize=(10,6))
+plt.plot(x, y, label='Deflection y(x)')
+plt.title('Beam Deflection Curve')
+plt.xlabel('Position along the beam (x)')
+plt.ylabel('Deflection (y)')
+plt.legend()
+plt.grid(True)
+plt.show()
+```

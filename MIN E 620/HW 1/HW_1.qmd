@@ -1,0 +1,37 @@
+---
+course: "Rock Mechanics (Min Eng – 620)"
+title: "Homework No. 1"
+author: "Jinpeng Zhu"
+date: !expr __import__('datetime').date.today().isoformat()
+assignment: "Homework No. 1"
+student-id: "1907843"
+format:
+  pdf:
+    template-partials: 
+      - ../../Assets/template/uofa-eng-assignment-partial/title.tex
+    pdf-engine: lualatex
+    fig-pos: H
+    logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
+jupyter: python3
+execute: 
+  echo: false
+---
+
+
+# Homework No. 1
+
+Due: January 22, 2026
+
+A borehole deformation gauge test is conducted within a drill hole initially 5.0 cm in diameter.  Young’s Modulus is known to be 6.897 x 104 MPa.  The U1 axis of the gauge was installed parallel to the true horizontal direction.  The following diametral displacement data were measured following overcoring:
+
+U1 = 1120 micro cm
+U2 = 4540 micro cm
+U3 = 3340 micro cm
+
+1.    Calculate the principal stresses and their orientation. 
+2.    Does this test show the true orientation of the in-situ principal stresses, and if it doesn’t, what would you have to do to measure the true 3-dimensional orientation of the principal stresses?
+
+# Solution
+
+## Q1. Calculate the principal stresses and their orientation
+
