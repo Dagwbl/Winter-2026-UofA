@@ -18,5 +18,4 @@ format:
     #   - text: |
     #       \numberwithin{equation}{section}
     #       \addtolength{\textheight}{-1cm}
-jupyter: python3
 ---
