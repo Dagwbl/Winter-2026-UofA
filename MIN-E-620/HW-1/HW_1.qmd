@@ -35,9 +35,9 @@ U3 = 3340 micro cm
 
 ## Q1. Calculate the principal stresses and their orientation
 
-Based on the known information, we can get Mohor's circle as follows:
+Based on the known information, we can get Mohr's circle as follows:
 
-![Mohor's Circle](2026-01-13-16-50-30.png)
+![Mohr's Circle](2026-01-13-16-50-30.png)
 
 Due to a lack of information about Poisson's ratio, we can only use the following equations (USBM Deformation Gage Test) to calculate the principal stresses:
 
@@ -65,18 +65,24 @@ $$
 
 Substitute $E = 6.897 \times 10^4$ MPa, and $d = 5$ cm into @eq-sigma-1 and @eq-sigma-3 and @eq-theta (1 micro cm = 10e-6 cm),
 $$
-\sigma_1=\frac{6.897\times 10^4}{6\times5}(9000\times10^{-6}+3005.4 \times 10^{-6})\\
-=27.6\ \mathrm{MPa}
+\begin{aligned}
+\sigma_1 &=\frac{6.897\times 10^4}{6\times5}(9000\times10^{-6}+3005.4 \times 10^{-6})\\
+&=27.6\ \mathrm{MPa}
+\end{aligned}
 $$
 
 $$
-\sigma_3=\frac{6.897\times 10^4}{6\times5}(9000\times10^{-6}-3005.4 \times 10^{-6})\\
-=13.78 \ \mathrm{MPa}
+\begin{aligned}
+\sigma_3 &=\frac{6.897\times 10^4}{6\times5}(9000\times10^{-6}-3005.4 \times 10^{-6})\\
+&=13.78 \ \mathrm{MPa}
+\end{aligned}
 $$
 
 $$
-\theta_p^\prime = 0.5 \tan^{-1} \left( \frac{\sqrt{3}(4540 - 3340)}{2\times 1120 - 4540 - 3340} \right)\\
-=-10.115^\circ
+\begin{aligned}
+\theta_p^\prime &= 0.5 \tan^{-1} \left( \frac{\sqrt{3}(4540 - 3340)}{2\times 1120 - 4540 - 3340} \right)\\
+&=-10.115^\circ
+\end{aligned}
 $$
 
 For the various conditions, we have the rule as shown below,
@@ -93,5 +99,5 @@ $$
 
 No, it doesn't. 
 
-This result couldn't show the true orientation of the in-situ principal stresses. Because the real in-situ stresses are affected by the 3D environment, this deformation gauge test only measured the plane perpendicular to the borehole, which is a casting of the true principal stresses. Therefore, to get the true 3-dimensional orientation of the principal stresses, at least three different orientations are required. Once we get three crossing stresses, we can use the principal stresses rule to find a plane that has zero shear stress, and then get the perpendicular direction as the true orientation of the in-situ principal stresses.
+This result couldn't show the true orientation of the in-situ principal stresses. Because the real in-situ stresses are affected by the 3D environment, this deformation gauge test only measured the plane perpendicular to the borehole, which is a projection of the true principal stresses. Therefore, to get the true 3-dimensional orientation of the principal stresses, at least three different orientations are required (such as testing three perpendicular planes or using a method like CSIRO). Once we get three crossing stresses, we can use the principal stresses rule to find a plane that has zero shear stress, and then get the perpendicular direction as the true orientation of the in-situ principal stresses.
 
