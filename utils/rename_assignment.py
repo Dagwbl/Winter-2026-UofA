@@ -1,9 +1,8 @@
 """
 Script to rename assignment output files with unified naming convention.
-Format: CourseName_AssignmentNo_FolderName_StudentName_StudentID.pdf
+Format: CourseName_AssignmentNo_StudentName_StudentID.pdf
 """
 
-import os
 import yaml
 import argparse
 from pathlib import Path
@@ -152,36 +151,46 @@ def main():
         description='Rename assignment output files with unified naming convention'
     )
     parser.add_argument(
-        'assignment_folder',
+        'rendered_file',
         nargs='?',  # Make it optional
-        help='Path to the assignment folder (e.g., MIN-E-630/HW-1)'
+        help='Path to the rendered file (passed by Quarto) or assignment folder'
     )
     parser.add_argument(
         '-f', '--filename',
-        help='Output filename to rename (if not specified, will search for PDF files)'
+        help='Output filename to rename (if not specified, will use rendered file name)'
     )
     
     args = parser.parse_args()
     
-    # Determine assignment folder
-    if args.assignment_folder:
-        assignment_folder = args.assignment_folder
+    # Determine assignment folder and output filename
+    if args.rendered_file:
+        rendered_path = Path(args.rendered_file)
+        print(f"DEBUG: Rendered file = {rendered_path}")
+        
+        # If it's a file (e.g., hw-1.pdf), use its parent as assignment folder
+        if rendered_path.is_file():
+            assignment_folder = str(rendered_path.parent)
+            output_filename = rendered_path.name if not args.filename else args.filename
+            print(f"Auto-detected from rendered file:")
+            print(f"  Assignment folder: {assignment_folder}")
+            print(f"  Output file: {output_filename}")
+        # If it's a directory, use it as assignment folder
+        elif rendered_path.is_dir():
+            assignment_folder = str(rendered_path)
+            output_filename = args.filename
+        else:
+            print(f"Error: Rendered file not found: {rendered_path}")
+            exit(1)
     else:
-        # Auto-detect when called by Quarto
+        # Auto-detect when no argument provided
         detected = detect_assignment_folder()
         if detected:
             assignment_folder = str(detected)
             print(f"Auto-detected assignment folder: {assignment_folder}")
+            output_filename = args.filename
         else:
             print("Error: Could not detect assignment folder. Please provide it as an argument.")
             exit(1)
-    
-    # Determine output filename
-    if args.filename:
-        output_filename = args.filename
-    else:
-        # Will auto-detect PDF in the rename function
-        output_filename = None
     
     success = rename_output_file(assignment_folder, output_filename)
     
