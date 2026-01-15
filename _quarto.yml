@@ -1,0 +1,12 @@
+student:
+  name: "Jinpeng"
+  id: "1907843"
+
+courses:
+  MIN-E-630: "MIN E 630"
+  MIN-E-620: "MIN E 620"
+  CIV-E-665: "CIV E 665"
+
+project: 
+  type: default
+  post-render: utils/rename_assignment.py

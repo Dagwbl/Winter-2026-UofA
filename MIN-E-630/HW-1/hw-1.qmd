@@ -1,5 +1,5 @@
 ---
-course: "Underground Mining and Bulk Materials Handling (MIN E – 630)"
+course: "Underground Mining and Bulk Materials Handling\\newline (MIN E – 630)"
 title: "Homework #1"
 author: "Jinpeng Zhu"
 date: today
@@ -8,7 +8,7 @@ student-id: "1907843"
 format:
   pdf:
     template-partials: 
-      - ../../Assets/template/uofa-eng-assignment-partial/title.tex
+      - ../../Assets/template/uofa-eng-assignment-partial/MINE630/title.tex
     pdf-engine: xelatex
     fig-pos: H
     logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
@@ -17,5 +17,6 @@ format:
     # include-in-header:
     #   - text: |
     #       \numberwithin{equation}{section}
+    #       \addtolength{\textheight}{-1cm}
 jupyter: python3
 ---
