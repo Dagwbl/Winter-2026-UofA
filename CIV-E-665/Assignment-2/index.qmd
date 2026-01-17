@@ -1,0 +1,97 @@
+---
+course: "Intro to Finite Element Method (CIV E – 665)"
+title: "Assignment No. 2"
+author: "Jinpeng Zhu"
+date: today
+student-id: "1907843"
+format:
+  pdf:
+    template-partials: 
+      - ../../Assets/template/uofa-eng-assignment-partial/title.tex
+    pdf-engine: xelatex
+    fig-pos: H
+    logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
+    keep-tex: true
+    number-sections: true
+    include-in-header:
+      - text: |
+          \numberwithin{equation}{section}
+---
+
+# Question 1
+
+## i
+
+For this question, the weighted integral statement is, 
+$$
+\int_0^L w(x)\left[ \frac{d}{dx}\left(EA\frac{du}{dx}\right) + b(x) \right]  \, dx = 0
+$$ {#eq-weighted-integral-statement}
+
+## ii
+
+Expand the bracket in the @eq-weighted-integral-statement, 
+$$
+\overbrace{\int_0^L w(x)\left[ \frac{d}{dx}\left(EA\frac{du}{dx}\right)\right]dx}^{I} +\int_0^L w(x)b(x)   \, dx = 0
+$$
+
+We try to end up with the same continuity requirement between $u(x)$ and $w(x)$
+
+-   u(x): must at least be twice differentiable (because we have $\frac{d}{dx}\left(EA\frac{du}{dx}\right)$)
+-   w(x): No differentiability requirement (because we have w(x))
+
+Apply integrating $I$ by parts,
+
+$$
+\left(w(x)EA\frac{du}{dx}\right]_0^L-\int_0^LEA\frac{dw}{dx}\frac{du}{dx}dx+\int_0^L w(x)b(x)dx=0
+$$
+
+Expand the natural B.C.
+$$
+w(L)EA\frac{du}{dx}\bigg|_L-w(0)EA\frac{du}{dx}\bigg|_0-\int_0^LEA\frac{dw}{dx}\frac{du}{dx}dx+\int_0^L w(x)b(x)dx=0
+$$
+Boundary term for this problem,
+
+- Case 1: Dis appears when we have an essential B.C, at x=0, u=0, so we impose w=0
+- Case 2: At $x=L, EA\frac{du}{dx}=2EA_0\frac{du}{dx}=F$
+
+$$
+w(L)EA\frac{du}{dx}\bigg|_L-\int_0^LEA\frac{dw}{dx}\frac{du}{dx}dx+\int_0^L w(x)b(x)dx=0
+$$
+
+Given that: 𝐸 =100 GPa, 𝐴0 =0.005 m2 𝐹 =100 N and 𝐿=1 m
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Question 2
+
+My answer: I successfully installed Abaqus.
