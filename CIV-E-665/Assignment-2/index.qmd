@@ -11,86 +11,215 @@ format:
     pdf-engine: xelatex
     fig-pos: H
     logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
-    keep-tex: true
+    # keep-tex: true
     number-sections: true
-    include-in-header:
-      - text: |
-          \numberwithin{equation}{section}
+    # include-in-header:
+    #   - text: |
+    #       \numberwithin{equation}{section}
 ---
 
 # Question 1
 
 ## i
 
-For this question, the weighted integral statement is, 
+The given strong form:
 $$
-\int_0^L w(x)\left[ \frac{d}{dx}\left(EA\frac{du}{dx}\right) + b(x) \right]  \, dx = 0
+-\frac{d}{dx}\left( EA \frac{du}{dx} \right) - b(x) = 0
+$${#eq-strong-form}
+
+Since $b(x) = 0$, the strong form becomes:
+$$
+-\frac{d}{dx}\left( EA \frac{du}{dx} \right) = 0
+$${#eq-strong-form-simplified}
+
+
+Therefore, for this question, the weighted integral statement is, 
+$$
+\int_0^L w(x)\left[ -\frac{d}{dx}\left(EA\frac{du}{dx}\right) \right]  \, dx = 0
 $$ {#eq-weighted-integral-statement}
 
 ## ii
 
-Expand the bracket in the @eq-weighted-integral-statement, 
+Apply the integration by parts rule to the @eq-weighted-integral-statement, 
 $$
-\overbrace{\int_0^L w(x)\left[ \frac{d}{dx}\left(EA\frac{du}{dx}\right)\right]dx}^{I} +\int_0^L w(x)b(x)   \, dx = 0
+-\left[ w EA \frac{du}{dx} \right]_{0}^{L} + \int_{0}^{L} \frac{dw}{dx} EA \frac{du}{dx} dx = 0
+$${#eq-ii-1}
+
+Expand the bracket,
 $$
+-w(L)EA\frac{du}{dx}\bigg|_L + w(0)EA\frac{du}{dx}\bigg|_0 +\int_0^LEA\frac{dw}{dx}\frac{du}{dx}dx=0
+$$ {#eq-ii-2}
 
 We try to end up with the same continuity requirement between $u(x)$ and $w(x)$
 
 -   u(x): must at least be twice differentiable (because we have $\frac{d}{dx}\left(EA\frac{du}{dx}\right)$)
 -   w(x): No differentiability requirement (because we have w(x))
 
-Apply integrating $I$ by parts,
-
-$$
-\left(w(x)EA\frac{du}{dx}\right]_0^L-\int_0^LEA\frac{dw}{dx}\frac{du}{dx}dx+\int_0^L w(x)b(x)dx=0
-$$
-
-Expand the natural B.C.
-$$
-w(L)EA\frac{du}{dx}\bigg|_L-w(0)EA\frac{du}{dx}\bigg|_0-\int_0^LEA\frac{dw}{dx}\frac{du}{dx}dx+\int_0^L w(x)b(x)dx=0
-$$
 Boundary term for this problem,
 
-- Case 1: Dis appears when we have an essential B.C, at x=0, u=0, so we impose w=0
+- Case 1: Dis appears when we have an essential B.C, at $x=0, u(0)=0$, so we impose $w(0)=0$
 - Case 2: At $x=L, EA\frac{du}{dx}=2EA_0\frac{du}{dx}=F$
 
+Substituting these into @eq-ii-2, the final weak form is:
 $$
-w(L)EA\frac{du}{dx}\bigg|_L-\int_0^LEA\frac{dw}{dx}\frac{du}{dx}dx+\int_0^L w(x)b(x)dx=0
+-w(L)F + \int_{0}^{L} EA \frac{dw}{dx} \frac{du}{dx} dx = 0
+$$ {#eq-ii3}
+
+## iii
+
+Given $U_1(x) = c_1 x + c_0$,apply B.C case 1, $c_0=0$ can be obtained, so
+$$
+\frac{dU_1}{dx} = c_1
+$$ {#eq-iii1}
+
+Per Ritz/Galerkin Method, the weight function has the same mathematical form as the approximate solution; therefore, set:
+$$
+w(x) = x \quad \implies \quad \frac{dw}{dx} = 1
+$$ {#eq-iii2}
+
+
+Substituing known data: $E = 100 \text{ GPa} = 100 \times 10^9 \text{ Pa}$, $A_0 = 0.005 \text{ m}^2$, $F = 100 \text{ N}$, $L = 1 \text{ m}$, $EA_0 = (100 \times 10^9)(0.005) = 5 \times 10^8 \text{ N}$, $A(x) = A_0(1 + x)$ and @eq-iii1, @eq-iii2 into @eq-ii3,
+$$
+\begin{aligned}
+-w(1)F + \int_{0}^{1} EA_0(1 + x) (1) c_1 dx = 0\\ \implies
+-100+5 \times 10^8\int_0^1 (1 + x) (1) c_1 dx=0\\ \implies
+-100+5 \times 10^8 c_1 \left[ x + \frac{x^2}{2} \right]_{0}^{1} = 0 \\ \implies
+-100 + (5 \times 10^8) c_1 (1 + 0.5) = 0 \\ \implies
+c_1 \approx 1.333 \times 10^{-7}
+\end{aligned}
 $$
 
-Given that: 𝐸 =100 GPa, 𝐴0 =0.005 m2 𝐹 =100 N and 𝐿=1 m
+So, 
+$$
+U_1(x) = \frac{100}{5 \times 10^8 \times 1.5} x = 1.333 \times 10^{-7} x
+$$
 
 
+## iv
 
+For using an 𝑛=2 Ritz/Galerkin Approximation,
+$$
+U_2(x) = c_1 x + c_2 x^2 + c_0
+$${#eq-iv-1}
 
+Apply essential B.C. $u(0)=0 \implies c_0=0$, 
+$$
+\begin{aligned}
+U_2(x) = c_1 x + c_2 x^2 \\
+\frac{dU_2}{dx} = \sum c_j \frac{d\theta_j}{dx}
+\end{aligned}
+$${#eq-iv-2}
 
+Based on the given data, we know $\theta_1=x,\ \theta_2=x^2$
 
+To keep the same mathematical form as the $U_2(x)$, 
+$$
+w(x) = x + x^2
+$$
+Re-arrange @eq-ii3 into $\{K\} \{c\} = \{f\}$,
+$$
+\int_{0}^{L} EA \frac{dw}{dx} \frac{du}{dx} dx = w(L)F
+$$
+Building Ritz/Galerkin system, we use index $i$ to evaluate all positions $j$
+$$
+\int_0^L EA \frac{d\theta_i}{dx} \left( \sum_{j=1}^n c_j \frac{d\theta_j}{dx} \right) dx=\theta_i(L)F
+$${#eq-iv-3}
 
+Discretize @eq-iv-3
+$$
+\sum_{j=1}^n \overbrace{\left[ \int_0^L EA(x) \frac{d\theta_i}{dx} \frac{d\theta_j}{dx} dx \right]}^{K_{ij}} \overbrace{c_j}^{c_{j}} = \overbrace{\theta_i(L)F}^{f_i}
+$${#eq-iv-4}
 
+Then we can get 4 equations to form a stiffness matrix K:
+$$
+\begin{bmatrix} K_{11} & K_{12} \\ K_{21} & K_{22} \end{bmatrix}\begin{bmatrix} c_1 \\c_2\end{bmatrix}= \begin{bmatrix} f_1 \\ f_2 \end{bmatrix}
+$${#eq-iv-5}
 
+Substituting known data, we can get,
+$$
+\begin{bmatrix} \int_{0}^{1} EA_0(1+x)(1)(1) dx & \int_{0}^{1} EA_0(1+x)(1)(2x) dx \\ \int_{0}^{1} EA_0(1+x)(2x)(1) dx & \int_{0}^{1} EA_0(1+x)(2x)(2x) dx \end{bmatrix}\begin{bmatrix} c_1 \\c_2\end{bmatrix}= \begin{bmatrix} 100 \\ 100\end{bmatrix}
+$$ {#eq-iv-matrix}
 
+To here, we can easily get unknown $c_1$ and $c_2$ by any method. Now we use Python to assist in solving @eq-iv-matrix. The code is shown below:
 
+```{python}
+#| label: python-solution
+import sympy as sp
 
+# Define the symbolic variable
+x = sp.symbols('x')
 
+# Constants
+E = 100 * 10**9
+A0 = 0.005
+L = 1
+F = 100
+EA0 = E * A0  # This is a constant coefficient (5 * 10^8)
 
+# Define the four integral terms in the stiffness matrix K
+K11 = sp.integrate(EA0 * (1 + x) * 1 * 1, (x, 0, 1))
+K12 = sp.integrate(EA0 * (1 + x) * 1 * (2*x), (x, 0, 1))
+K21 = sp.integrate(EA0 * (1 + x) * (2*x) * 1, (x, 0, 1))
+K22 = sp.integrate(EA0 * (1 + x) * (2*x) * (2*x), (x, 0, 1))
 
+# 4. Build the K matrix and force vector
+K_matrix = sp.Matrix([[K11, K12], [K21, K22]])
+F_vector = sp.Matrix([100, 100])
 
+# Solve [K]{c} = {f}
+solution = K_matrix.LUsolve(F_vector)  # Using LU decomposition
+c1, c2 = solution[0], solution[1]
+```
 
+| $c_1$  | $c_2$  |
+|--------|--------|
+| `{python} c1`  | `{python} c2`   |
 
+Therefore, the final approximate solution is,
+```{python}
+#| output: asis
+#| echo: false
+from IPython.display import display, Markdown
 
+eq = f'''$$
+U_2(x) = {c1}x + {c2} x^2
+$$'''
+display(Markdown(eq))
+```
 
+## v
 
+Using Matplotlib to plot $u(x)$, $U_1(x)$ and $U_2(x)$ together, as shown in the @fig-comparison-plot. The code is shown below:
+```{python}
+#| label: fig-comparison-plot
+#| fig-cap: "Comparison of Exact and Approximate Solutions"
+import numpy as np
+import matplotlib.pyplot as plt
+# Generate x values
+x_vals = np.linspace(0, 1, 200)
 
+# Define the exact solution function
+u = F*L / (E * A0) * np.log(1 + x_vals/L)
+U1 = (100/(5 * 10**8 * 1.5)) * x_vals
+U2 = c1 * x_vals + c2 * x_vals**2
+# Calculate corresponding u(x), U1(x), and U2(x) values
+u_vals = F*L / (E * A0) * np.log(1 + x_vals/L)
+U1_vals = (100/(5 * 10**8 * 1.5)) * x_vals
+U2_vals = c1 * x_vals + c2 * x_vals**2
 
+# Plotting
+plt.figure(figsize=(8, 6))
+plt.plot(x_vals, u_vals, label='Exact $u(x)$')
+plt.plot(x_vals, U1_vals, label='$U_1(x)$')
+plt.plot(x_vals, U2_vals, label='$U_2(x)$')
+plt.xlabel('x')
+plt.ylabel('Displacement')
+plt.title('Comparison of Exact and Approximate Solutions')
+plt.legend()
+plt.grid(True)
+plt.show()
 
-
-
-
-
-
-
-
-
+```
 
 # Question 2
 

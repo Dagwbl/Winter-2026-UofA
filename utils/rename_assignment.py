@@ -4,9 +4,10 @@ Format: CourseName_AssignmentNo_StudentName_StudentID.pdf
 """
 
 import yaml
-import argparse
+import json
 from pathlib import Path
 import shutil
+import sys
 
 
 def read_metadata(metadata_path):
@@ -27,17 +28,23 @@ def sanitize_filename(text):
     return text
 
 
-def rename_output_file(assignment_folder, output_filename=None):
-    """
+def rename_output_file(rendered_file_path):
+    r"""
     Rename the output file based on metadata and folder structure.
     
     Args:
-        assignment_folder: Path to the assignment folder (e.g., 'MIN-E-630/HW-1')
-        output_filename: Name of the output file to rename (default: 'hw-1.pdf')
+        rendered_file_path: Path to the rendered file (e.g., 'D:\UA\Winter-2026\CIV-E-665\Assignment-2\index.pdf')
     """
-    assignment_path = Path(assignment_folder)
+    rendered_path = Path(rendered_file_path)
     
-    # Find _quarto.yml in the root directory (workspace root)
+    if not rendered_path.exists():
+        print(f"Error: Rendered file not found: {rendered_path}")
+        return False
+    
+    # Get assignment folder (parent directory of rendered file)
+    assignment_path = rendered_path.parent
+    
+    # Find _quarto.yml in the root directory (2 levels up from assignment folder)
     root_path = assignment_path.parent.parent
     quarto_path = root_path / '_quarto.yml'
     
@@ -53,9 +60,9 @@ def rename_output_file(assignment_folder, output_filename=None):
         return False
     
     # Extract information
-    course_folder_name = assignment_path.parent.name  # e.g., 'MIN-E-630'
+    course_folder_name = assignment_path.parent.name  # e.g., 'CIV-E-665'
     course_name = quarto_config.get('courses', {}).get(course_folder_name, course_folder_name)
-    assignment_no = assignment_path.name  # Use folder name as assignment number
+    assignment_no = assignment_path.name  # e.g., 'Assignment-2'
     student_name = quarto_config.get('student', {}).get('name', 'UNKNOWN')
     student_id = quarto_config.get('student', {}).get('id', 'UNKNOWN')
     
@@ -65,27 +72,8 @@ def rename_output_file(assignment_folder, output_filename=None):
     student_name = sanitize_filename(student_name)
     student_id = sanitize_filename(str(student_id))
     
-    # Find the output file
-    if output_filename:
-        output_path = assignment_path / output_filename
-        if not output_path.exists():
-            print(f"Error: Output file not found at {output_path}")
-            return False
-    else:
-        # Auto-detect PDF file
-        pdf_files = list(assignment_path.glob('*.pdf'))
-        # Exclude already renamed files
-        pdf_files = [f for f in pdf_files if not ('_' in f.stem and len(f.stem.split('_')) >= 5)]
-        
-        if not pdf_files:
-            print(f"Error: No PDF files found in {assignment_path}")
-            return False
-        
-        output_path = pdf_files[0]
-        print(f"Found output file: {output_path.name}")
-    
-    # Get file extension
-    file_ext = output_path.suffix
+    # Get file extension from rendered file
+    file_ext = rendered_path.suffix
     
     # Create new filename
     new_filename = f"{course_name}_{assignment_no}_{student_name}_{student_id}{file_ext}"
@@ -93,9 +81,9 @@ def rename_output_file(assignment_folder, output_filename=None):
     
     # Rename the file
     try:
-        shutil.move(str(output_path), str(new_path))
+        shutil.move(str(rendered_path), str(new_path))
         print(f"Successfully renamed:")
-        print(f"  From: {output_path.name}")
+        print(f"  From: {rendered_path.name}")
         print(f"  To:   {new_filename}")
         print(f"  Path: {new_path}")
         return True
@@ -104,100 +92,88 @@ def rename_output_file(assignment_folder, output_filename=None):
         return False
 
 
-def detect_assignment_folder():
-    """Detect assignment folder from environment or current working directory"""
-    # First check current working directory
-    cwd = Path.cwd()
-    print(f"DEBUG: Current working directory = {cwd}")
+def find_latest_pdf(search_path):
+    """Find the most recently modified PDF file in the given path (within 1 minute)"""
+    import time
     
-    # Check if we're in an assignment folder (parent parent has _quarto.yml)
-    root_quarto = cwd.parent.parent / '_quarto.yml'
-    if root_quarto.exists():
-        print(f"DEBUG: CWD is assignment folder (found _quarto.yml at {root_quarto})")
-        return cwd
+    pdf_files = list(Path(search_path).rglob('*.pdf'))
+    if not pdf_files:
+        return None
     
-    # Check if cwd is the project root and find the most recently modified PDF
-    project_quarto = cwd / '_quarto.yml'
-    if project_quarto.exists():
-        print(f"DEBUG: CWD is project root, searching for recently modified PDF")
-        
-        # Find all PDF files in course/assignment folders
-        newest_pdf = None
-        newest_time = 0
-        
-        for course_folder in cwd.iterdir():
-            if course_folder.is_dir() and not course_folder.name.startswith(('.', '_')):
-                for assignment_folder in course_folder.iterdir():
-                    if assignment_folder.is_dir() and not assignment_folder.name.startswith(('.', '_')):
-                        for pdf_file in assignment_folder.glob('*.pdf'):
-                            mtime = pdf_file.stat().st_mtime
-                            if mtime > newest_time:
-                                newest_time = mtime
-                                newest_pdf = pdf_file
-        
-        if newest_pdf:
-            assignment_folder = newest_pdf.parent
-            print(f"DEBUG: Found most recent PDF at {newest_pdf}")
-            print(f"DEBUG: Using assignment folder {assignment_folder}")
-            return assignment_folder
+    # Get current time
+    current_time = time.time()
     
-    print("ERROR: Could not detect assignment folder from environment")
-    return None
+    # Filter PDFs modified within the last 60 seconds
+    recent_pdfs = [p for p in pdf_files if (current_time - p.stat().st_mtime) < 60]
+    
+    if not recent_pdfs:
+        return None
+    
+    # Get the most recently modified PDF
+    latest_pdf = max(recent_pdfs, key=lambda p: p.stat().st_mtime)
+    return latest_pdf
 
 
 def main():
-    """Main function to handle command line arguments or Quarto post-render"""
-    parser = argparse.ArgumentParser(
-        description='Rename assignment output files with unified naming convention'
-    )
-    parser.add_argument(
-        'rendered_file',
-        nargs='?',  # Make it optional
-        help='Path to the rendered file (passed by Quarto) or assignment folder'
-    )
-    parser.add_argument(
-        '-f', '--filename',
-        help='Output filename to rename (if not specified, will use rendered file name)'
-    )
+    """Main function to handle input from Quarto post-render"""
+    import select
+    import os
     
-    args = parser.parse_args()
+    # Check if there's data available on stdin (non-blocking)
+    # On Windows, select doesn't work with stdin, so we check if stdin is a TTY
+    has_stdin_input = not sys.stdin.isatty()
     
-    # Determine assignment folder and output filename
-    if args.rendered_file:
-        rendered_path = Path(args.rendered_file)
-        print(f"DEBUG: Rendered file = {rendered_path}")
+    files = []
+    
+    if has_stdin_input:
+        # Try to read JSON input from stdin
+        try:
+            input_data = json.load(sys.stdin)
+            
+            # Extract files from the input
+            files = input_data.get('files', [])
+            if not files:
+                # Try alternative structure
+                output_file = input_data.get('output')
+                if output_file:
+                    files = [output_file]
+            
+            if not files:
+                print("Warning: No rendered file found in JSON input")
+                print(f"Received input: {json.dumps(input_data, indent=2)}")
+                
+        except json.JSONDecodeError as e:
+            print(f"Warning: Could not parse JSON from stdin: {e}")
+    
+    # Fallback: use command line arguments
+    if not files and len(sys.argv) > 1:
+        files = sys.argv[1:]
+    
+    # Final fallback: search for the most recently modified PDF in current directory
+    if not files:
+        cwd = Path.cwd()
+        print(f"Searching for recently modified PDF files in: {cwd}")
         
-        # If it's a file (e.g., hw-1.pdf), use its parent as assignment folder
-        if rendered_path.is_file():
-            assignment_folder = str(rendered_path.parent)
-            output_filename = rendered_path.name if not args.filename else args.filename
-            print(f"Auto-detected from rendered file:")
-            print(f"  Assignment folder: {assignment_folder}")
-            print(f"  Output file: {output_filename}")
-        # If it's a directory, use it as assignment folder
-        elif rendered_path.is_dir():
-            assignment_folder = str(rendered_path)
-            output_filename = args.filename
+        # Look for PDF files in course assignment folders
+        latest_pdf = find_latest_pdf(cwd)
+        
+        if latest_pdf:
+            print(f"Found latest PDF: {latest_pdf}")
+            files = [str(latest_pdf)]
         else:
-            print(f"Error: Rendered file not found: {rendered_path}")
-            exit(1)
-    else:
-        # Auto-detect when no argument provided
-        detected = detect_assignment_folder()
-        if detected:
-            assignment_folder = str(detected)
-            print(f"Auto-detected assignment folder: {assignment_folder}")
-            output_filename = args.filename
-        else:
-            print("Error: Could not detect assignment folder. Please provide it as an argument.")
+            print("Error: No PDF files found")
             exit(1)
     
-    success = rename_output_file(assignment_folder, output_filename)
+    success_count = 0
+    for rendered_file in files:
+        print(f"\nRenaming rendered file: {rendered_file}")
+        if rename_output_file(rendered_file):
+            success_count += 1
     
-    if success:
-        print("\n[SUCCESS] File renamed successfully!")
+    if success_count == len(files):
+        print(f"\n[SUCCESS] All {success_count} file(s) renamed successfully!")
     else:
-        print("\n[ERROR] Failed to rename file.")
+        print(f"\n[WARNING] {success_count}/{len(files)} file(s) renamed successfully.")
         exit(1)
 
 
