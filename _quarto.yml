@@ -9,4 +9,4 @@ courses:
 
 project: 
   type: default
-  post-render: utils/rename_assignment.py
+  # post-render: utils/rename_assignment.py

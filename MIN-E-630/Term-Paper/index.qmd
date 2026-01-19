@@ -1,0 +1,38 @@
+---
+title: Term Paper
+author: Jinpeng Zhu
+date: today
+format:
+  typst:
+    papersize: a5
+    margin:
+      x: 1cm
+      y: 1cm
+    columns: 1
+bibliography: ../../Zotero.bib
+bibliographystyle: chicago-author-date
+---
+
+# Requirements
+
+Each student will be required to submit ONE term paper (and presentation slides) by March 26, 2026 and make a related oral presentation in the class on April 2, 2026. Each student will be given 15 minutes for the presentation, followed by about 2 minutes of questions.  Our current enrollment is 7 (until Jan 5), if the class size further expands, I will consider prerecording the presentation as a second choice.
+
+Term paper length requirements 2,500~3,500 words
+
+Format  
+Please follow the style of SME Transactions:  
+
+http://transactions.smenet.org/docs/Publications/Transactions/How_to_Submit_to_Transactions.pdf (@HowSubmitTransactions)
+
+Grading Criteria
+
+Format (10%)
+Submissions following the proposed schedule (20%)
+Content completeness and Originality (20%)
+Discussions and Contributions (20%)
+Paper organization (10%)
+Unity, coherence, and logic (20%)
+
+
+\ref{}
+
