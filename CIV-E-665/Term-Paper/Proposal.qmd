@@ -8,9 +8,18 @@ format:
       x: 1cm
       y: 1cm
     columns: 1
+    fontsize: 11pt
+    line-spacing: 1.5
 bibliography: ../../Zotero.bib
 bibliographystyle: chicago-author-date
 ---
+# Background and Motivation
+
+> Introduce the problem
+> Describe its significance
+> Relevant literature review
+
+# Methods
 
 
 
@@ -20,16 +29,3 @@ bibliographystyle: chicago-author-date
 
 
 
-
-
-# Term Parer Requirements
-The term paper for CIV-E-665 consists of three main components:
-
-• Project Proposal:  
-• 1-2 page document  
-• Background and brief description of the methods (Problem Geometry, Boundary and Loading conditions, Type of Analysis)  
-
-• Project Report:  
-    • Topic of interest on ABAQUS  
-
-• Recorded Presentation:  • 4-8 mins Screen recording (Only Voice Over) project summary
