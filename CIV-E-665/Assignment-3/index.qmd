@@ -26,21 +26,33 @@ format:
 
 # Question 1
 
+![](./assets/image-20260127163123784.png)
+
 Given equations:
 
-$$EI \frac{d^4 w}{dx^4} = q(x) \quad \text{for } 0 \le x \le L$$ {#eq-1}
+$$
+EI \frac{d^4 w}{dx^4} = q(x) \quad \text{for } 0 \le x \le L
+$$ {#eq-1}
 
 Where: $q(x)=-950x-50,\ L=1\ m\ \text{and}\ EI = 10^6\ Nm^2$
 
-$$EI \int_{0}^{L} \frac{d^2 v}{dx^2} \frac{d^2 w}{dx^2} dx - \left[ \frac{dv}{dx} EI \frac{d^2 w}{dx^2} \right]_0^L + \left[ v EI \frac{d^3 w}{dx^3} \right]_0^L = \int_{0}^{L} v q dx$$ {#eq-2}
+$$
+EI \int_{0}^{L} \frac{d^2 v}{dx^2} \frac{d^2 w}{dx^2} dx - \left[ \frac{dv}{dx} EI \frac{d^2 w}{dx^2} \right]_0^L + \left[ v EI \frac{d^3 w}{dx^3} \right]_0^L = \int_{0}^{L} v q dx
+$$ {#eq-2}
 
-$$W(x) = c_2 x^3 + c_1 x^2$$ {#eq-3}
+$$
+W(x) = c_2 x^3 + c_1 x^2
+$$ {#eq-3}
 
-$$v(x) = x^3 + x^2$$ {#eq-4}
+$$
+v(x) = x^3 + x^2
+$$ {#eq-4}
 
-$$\theta_1 = x^2 \quad \text{and} \quad \theta_2 = x^3$$ {#eq-5}
+$$
+\theta_1 = x^2 \quad \text{and} \quad \theta_2 = x^3
+$$
 
-## i
+## i Show that the approximate solution satisfies the essential boundary conditions at  the fixed end ($x = 0$).
 
 For this cantilever beam problem, we at least need to satisfy two essential boundary conditions at the fixed end (x=0) to ensure the displacement and slope are both zero.
 
@@ -65,7 +77,7 @@ $$
 
 Therefore, the essential boundary condition 2 is also satisfied.
 
-## ii 
+## ii  Solve for the coefficients c1 and c2
 
 Based on solution (i), at $x=0$, we have:
 $$
@@ -148,9 +160,9 @@ $$ {#eq-13}
 
 Solve the system,$c_1 = -1.52916667 \times 10^{-4}$ and $c_2 = 5.95833333 \times 10^{-5}$
 
-## iii
+## iii Compare the approximate solution $W(x)$ to the exact solution $w(x)$ obtained in assignment 1 by plotting $w(x)$ and $W(x)$ on the same graph.
 
-Matplotlib is employed to visualize and compare the exact solution $w(x)$ and the approximate solution $W(x)$ derived from the finite element method. the source code is shown @sec-appendix-1.
+Matplotlib is employed to visualize and compare the exact solution $w(x)$ and the approximate solution $W(x)$ derived from the finite element method, as shown in @fig-exact-vs-approx. The source code is shown @sec-appendix-1.
 
 ```{python}
 #| label: fig-exact-vs-approx
@@ -200,6 +212,8 @@ Despite $W(x)$ being a lower-order polynomial (cubic) compared to the exact solu
 
 # Question 2
 
+![](./assets/image-20260127163337441.png)
+
 Since their diameters are different, we need to divide the stepped bar into three elements:
 
 1. Element 1 (steel): from $x=0$ to $x=16$ inches, $A_1 = 8$ in², $E_1 = 30 \times 10^6$ psi
@@ -213,7 +227,7 @@ Correspondingly, we have four nodes:
 3. Node 3: at $x=32$ inches
 4. Node 4: at $x=48$ inches
 
-## I 
+## I Evaluate the element wise stiffness matrices and force vectors
 
 Since these three elements have same length, so for each linear 1D bar element, the stiffness matrix $[k^e]$ is given by:
 $$
@@ -254,14 +268,14 @@ $$
 \{f^{(1)}\} = \{f^{(2)}\} = \{f^{(3)}\} = \begin{bmatrix} 0 \\ 0 \end{bmatrix}
 $$
 
-## II
+## II Assemble the matrices into a global system
 
 We assemble the local matrices into a global $4 \times 4$ stiffness matrix $[K]$.
 
 Global Stiffness Matrix $[K]$:
 $$
 [K] = 10^6 \begin{bmatrix} k_{11}^{(1)} & k_{12}^{(1)} & 0 & 0 \\ k_{21}^{(1)} & k_{22}^{(1)} + k_{11}^{(2)} & k_{12}^{(2)} & 0 \\ 0 & k_{21}^{(2)} & k_{22}^{(2)} + k_{11}^{(3)} & k_{12}^{(3)} \\ 0 & 0 & k_{21}^{(3)} & k_{22}^{(3)} \end{bmatrix}
-$${#eq-14}
+$$ {#eq-14}
 
 Substituting values:
 
@@ -286,7 +300,7 @@ $$
 10^6 \begin{bmatrix} 15 & -15 & 0 & 0 \\ -15 & 18.75 & -3.75 & 0 \\ 0 & -3.75 & 7.5 & -3.75 \\ 0 & 0 & -3.75 & 3.75 \end{bmatrix} \begin{bmatrix} u_1 \\ u_2 \\ u_3 \\ u_4 \end{bmatrix} = \begin{bmatrix} F_1 \\ 5000 \\ 0 \\ -2000 \end{bmatrix}
 $$
 
-## III
+## III Apply the boundary conditions and solve for the nodal displacements
 
 Boundary Condition: The bar is fixed at the wall (Node 1), so displacement is zero.
 $$
@@ -301,19 +315,73 @@ $$
 Use Matlab solving (the code please see @sec-appendix-2):
 
 $u_2 = 2.000000\times 10^{-04}$
-$u_3 = -3.333333\times 10^{-04}$
-$u_4 = -8.666667\times 10^{-04}$
+$u_3 = -\frac{10}{3}\times 10^{-04}$
+$u_4 = -\frac{26}{3}\times 10^{-04}$
 
-Therefore, the $u(x)$ for each element is:
+To construct the full solution
+
+$$
+U^e(x)=\Sigma_{i=1}^{2} u_j^e\psi_j^e = u_1\psi_1^e + u_2\psi_2^e
+$$
+
+for $u^1(x)$,
+$$
+\psi_1^1=\frac{x_2^1-x}{L_1}\quad \text{and} \quad \psi_2^1=\frac{x - x_1^1}{L_1}
+$$
+
+We can get:
 $$
 \begin{aligned}
-u^{1}(x) & = \frac{u_2 - u_1}{16} x + u_1 = 1.25 \times 10^{-5} x \quad \text{for } 0 \le x \le 16 \\
-u^{2}(x) & = \frac{u_3 - u_2}{16} (x - 16) + u_2 = -3.333333 \times 10^{-5} x + 8.666667 \times 10^{-4} \quad \text{for } 16 \le x \le 32 \\
-u^{3}(x) & = \frac{u_4 - u_3}{16} (x - 32) + u_3 = -3.333333 \times 10^{-5} x - 3.333333 \times 10^{-4} \quad \text{for } 32 \le x \le 48
+u^1(x) & = u_1 \frac{x_2^2 - x}{L_2} + u_2 \frac{x - x_1^2}{L_2}= u^{3}(x) \\
+ & =0+ 2\times 10^{-4} \frac{x}{16}  = 1.25 \times 10^{-5} x
 \end{aligned}
 $$
 
-## IV
+For $u^2(x)$,
+
+$$
+\psi_1^2=\frac{x_3^2-x}{L_2}\quad \text{and} \quad \psi_2^2=\frac{x - x_2^2}{L_2}
+$$
+We can get: 
+
+$$
+\begin{aligned}
+u^2(x) & = u_2 \frac{x_3^2 - x}{L_2} + u_3 \frac{x - x_2^2}{L_2}= \\
+ & =(2\times 10^{-4}) \frac{32- x}{16} + (-\frac{10}{3} \times 10^{-4}) \frac{x - 16}{16}\\
+ &= 0.0007\overline{3} - 0.0000\overline{3}x
+\end{aligned}
+$$
+
+
+
+For $u^3(x)$,
+
+$$
+\psi_1^3=\frac{x_4^3-x}{L_3}\quad \text{and} \quad \psi_2^3=\frac{x - x_3^3}{L_3}
+$$
+We can get: 
+
+$$
+\begin{aligned}
+u^2(x) & = u_2 \frac{x_4^3-x}{L_3} + u_3 \frac{x - x_3^3}{L_3}= \\
+ & = (-\frac{10}{3} \times 10^{-4}) \frac{48- x}{16} + (-\frac{26}{3} \times 10^{-4}) \frac{x - 32}{16}\\
+ &= 0.0007\overline{3} - 0.0000\overline{3}x
+\end{aligned}
+$$
+
+
+
+Therefore, the $u(x)$ for each element is:
+$$
+u(x) = \begin{cases}
+   u^1(x)= 1.25 \times 10^{-5} x &\text{if }= x \in[0,16] \\
+   u^2(x)=0.0007\overline{3} - 0.0000\overline{3}x &\text{if } x \in[16,32]\\
+   u^3(x)=0.0007\overline{3} - 0.0000\overline{3}x &\text{if } x \in[32,48]\\
+\end{cases}
+$$
+
+
+## IV Plot the displacement, strain, and stress as a function of the axial position $x$
 
 The displacement, strain, and stress as a function of the axial position x is shown as @fig-displacement. The plot code please see @sec-appendix.
 
@@ -424,9 +492,9 @@ plt.show()
 
 ```matlab
 % Define the coefficient matrix
-A_base = [18.75, 3.75, 0; 
-          3.75, 7.5, 3.75; 
-          0, 3.75, 3.75];
+A_base = [18.75, -3.75, 0;
+          -3.75, 7.5, -3.75;
+          0, -3.75, 3.75];
 A = 10^6 * A_base;
 
 % Define the constants vector

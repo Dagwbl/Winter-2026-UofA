@@ -12,14 +12,27 @@ format:
     line-spacing: 1.5
 bibliography: ../../Zotero.bib
 bibliographystyle: chicago-author-date
+abstract: |
+  This proposal outlines the intended research for the term paper in CIV-E-665, focusing on the application of smart concrete and machine learning techniques for monitoring the curing process of concrete structures. The study aims to explore the integration of IoT sensors with self-sensing concrete to enhance real-time monitoring capabilities, ultimately improving construction quality and durability.
 ---
-# Background and Motivation
+
+Key words: Smart Concrete, Machine Learning, Curing Monitoring, IoT Sensors, Self-Sensing.
+
+# Introduction 
 
 > Introduce the problem
 > Describe its significance
 > Relevant literature review
 
-# Methods
+# Literature Review
+
+# Statement of the Problem
+
+# Observations and Discussions
+
+# Conclusions
+
+# References
 
 
 
