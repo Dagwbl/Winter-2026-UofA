@@ -4,3 +4,5 @@
 **/*.quarto_ipynb
 Zotero.bib
 index.pdf
+*.html
+*.typ

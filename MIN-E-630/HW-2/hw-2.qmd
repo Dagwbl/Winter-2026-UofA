@@ -1,0 +1,82 @@
+---
+course: "Underground Mining and Bulk Materials Handling\\newline (MIN E – 630)"
+author: "Jinpeng Zhu"
+date: today
+assignment: "Assignment #2"
+title: "Assignment #2"
+student-id: "1907843"
+format:
+  pdf:
+    template-partials: 
+      - ../../Assets/template/uofa-eng-assignment-partial/MINE630/title.tex
+    pdf-engine: xelatex
+    fig-pos: H
+    logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
+    # keep-tex: true
+    number-sections: true
+    # include-in-header:
+    #   - text: |
+    #       \numberwithin{equation}{section}
+    #       \addtolength{\textheight}{-1cm}
+---
+
+# Validate the numbers of "Remaining Minable Resources i" in Sequences #2 and 3
+
+Based on the presets information. At the begining, we have 8200000 tons resources and two stopings. The first sequence includes Year-3, Year-4, and Year-5. So, the resource that will be mined can be calculated as following:
+
+$$
+amount of sequence 1 &= daily production \times (#of year) \times 320
+&=768000
+$$
+
+Therfore, for sequence 2, the remaining minable resource is equal to 8200000-768000=7432000.
+
+Similarly, the resource that will be mined in sequence 2 can be calculated as following:
+
+$$
+amount of sequence 2 &= daily production \times (#of year of sequence 2) \times 320
+&=1600 \times 8 \times 320 = 409600
+$$
+
+Therefore, for sequnce 3, the remaining minable resource is equal to 7432000-4096000=3336000.
+
+The numbers of "Remaining Minable Rescources" in Sequence #2 and Sequence #3 are correct.
+
+# In the softerware chat, there is a relationship between “Resource size, tons” and “Production, tpd.” Please use hand calculations to verify the relationship. Is this relationship accurate?
+
+![The relationship between resource and productioin](assets/The%20relationship%20between%20resource%20and%20production.png)
+
+According to the tip information, the guideline production rates calculated using Taylor's Rule (see @eq-taylor).
+
+Substitute the resources, 
+
+$$
+\text{Life of Mine} = 0.2 \times 8200000^0.25 \pm 1.2 \\
+= 10.7 \text{year}
+$$
+
+This leads to an estimate of the daily production:
+
+$$
+\text{Daily production} = \frac{Resource}{\text{Life of Mine} \times \text{320}}
+= \frac{8200000}{10.7 \times {320}}
+= 
+
+# Verify Taylor's Rule
+
+$$
+\text{Life of Mine}=0.2\times(\text{expected ore tonnes})^0.25 \pm 1.2 \text{years}
+$$ {@eq-taylor}
+
+# As a design engineer, how do you decide the "Life of Mine"? Please have a discussion.
+
+# Add Adit #2 using a similar dimension (compared with Adit #1) and 500 ft rock bolts at the “Portal Elevation” of 1300 ft.
+
+# Add one shaft using the following settings:
+
+# Report the "Capital Costs" to build Adit#2 and the shaft
+
+# What are the Total Capital Cost and Total Operating Cost for the whole project?
+
+
+

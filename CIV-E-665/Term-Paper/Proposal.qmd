@@ -2,14 +2,16 @@
 title: Proposal for Term Paper (CIV-E-665)
 author: Jinpeng Zhu
 format:
-  typst:
-    papersize: a5
-    margin:
-      x: 1cm
-      y: 1cm
-    columns: 1
-    fontsize: 11pt
-    line-spacing: 1.5
+  # typst:
+  #   papersize: a5
+  #   margin:
+  #     x: 1cm
+  #     y: 1cm
+  #   columns: 1
+  #   fontsize: 11pt
+  #   line-spacing: 1.5
+  html:
+    fontsize: 12pt
 bibliography: ../../Zotero.bib
 bibliographystyle: chicago-author-date
 abstract: |
@@ -34,11 +36,10 @@ Key words: Smart Concrete, Machine Learning, Curing Monitoring, IoT Sensors, Sel
 
 # References
 
+@kyrtsonisKonskyrtConcreteCrackDetectionSegmentation2026
 
 
 
 
 
-
-
-
+@mostafaLecturesIntroductionFinite2026
