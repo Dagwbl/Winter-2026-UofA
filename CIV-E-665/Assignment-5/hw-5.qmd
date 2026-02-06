@@ -1,0 +1,255 @@
+---
+course: "Intro to Finite Element Method (CIV E – 665)"
+title: "Assignment No. 5"
+author: "Jinpeng Zhu"
+date: today
+student-id: "1907843"
+format:
+  # html: 
+  #   toc: true
+  #   toc-depth: 2
+  #   number-sections: true
+  #   theme: united
+  #   code-fold: true
+  pdf:
+    template-partials: 
+      - ../../Assets/template/uofa-eng-assignment-partial/title.tex
+    pdf-engine: xelatex
+    fig-pos: H
+    logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
+    # keep-tex: true
+    number-sections: true
+    # include-in-header:
+    #   - text: |
+    #       \numberwithin{equation}{section}
+---
+
+# Question 1
+
+![image-20260206094038849](./assets/image-20260206094038849.png)
+
+## I. Find the element wise stiffness matrix and force vectors.  
+
+The stiffness matrix and force vectors will have the following form:
+$$
+K^{e} = \frac{2 E^{e} I^{e}}{L_{e}^{3}}
+\begin{bmatrix}
+6 & -3L_e & -6 & -3L_e \\
+-3L_e & 2L_e^{2} & 3L_e & L_e^{2} \\
+-6 & 3L_e & 6 & 3L_e \\
+-3L_e & L_e^{2} & 3L_e & 2L_e^{2}
+\end{bmatrix}
+$$
+
+$$
+f^e = \left\{ \int_{x_1^e}^{x_2^e} \psi_i^e q dx \right\}
+$$
+
+Where:
+
+- $L_e$ = h
+
+For this problem,  due to $L_1=L_2, EI = constant$, implies $K_1=K_2$, so,
+
+$$
+K^1 = K^2 = \frac{2 EI}{h^{3}}
+\begin{bmatrix}
+6 & -3h & -6 & -3h \\
+-3h & 2h^{2} & 3h & h^{2} \\
+-6 & 3h & 6 & 3h \\
+-3h & h^{2} & 3h & 2h^{2}
+\end{bmatrix}
+$$ {#eq-2-1}
+
+Since $q_0$ is a uniform distributed load, we can use,
+$$
+f^e = \frac{q^e L_e}{12} \begin{Bmatrix} 6 \\ -L_e \\ 6 \\ L_e \end{Bmatrix}
+$$
+NB: This is the positive sign convention adopted by J. N. Reddy
+
+ • Up: Positive • Clockwise: Positive
+
+For element 1, $q^e=q_0$
+$$
+f^e = \frac{q_0 h}{12} \begin{Bmatrix} 6 \\ -h \\ 6 \\ h \end{Bmatrix}
+$$ {#eq-2-2}
+
+For element 2,  $q^e=0$
+$$
+f^e = \frac{q_0 h}{12} \begin{Bmatrix} 6 \\ -h \\ 6 \\ h \end{Bmatrix}= \begin{Bmatrix} 0 \\ 0 \\ 0 \\ 0 \end{Bmatrix}
+$$ {#eq-2-3}
+
+## II. Assemble the system. 
+
+For this beam, we use two beam elements to discretize and assemble it.
+
+![image-20260206095749921](./assets/image-20260206095749921.png)
+
+Each beam element has 4 degrees of freedom. Assign a coordinate system as follows:
+
+- $x_n^e$: Position of node $n$ for element $e$
+- $w_n^e$: Local Transverse displacement of node $n$ for element $e$
+- $\theta_n$: Local Slope of node $n$ for element $e$
+- $W$: Global degree of freedom
+
+For element 1,
+$$
+K^1 = \begin{bmatrix}  K_{11}^1 & K_{12}^1 & K_{13}^1 & K_{14}^1 \\ K_{21}^1 & K_{22}^1 & K_{23}^1 & K_{24}^1 \\ K_{31}^1 & K_{32}^1 & K_{33}^1 & K_{34}^1 \\ K_{41}^1 & K_{42}^1 & K_{43}^1 & K_{44}^1  \end{bmatrix}, \quad  f^1 = \begin{Bmatrix}  f_1^1 \\  f_2^1 \\  f_3^1 \\  f_4^1  \end{Bmatrix}
+$$
+For element 2,
+$$
+K^2 = \begin{bmatrix} K_{11}^2 & K_{12}^2 & K_{13}^2 & K_{14}^2 \\ K_{21}^2 & K_{22}^2 & K_{23}^2 & K_{24}^2 \\ K_{31}^2 & K_{32}^2 & K_{33}^2 & K_{34}^2 \\ K_{41}^2 & K_{42}^2 & K_{43}^2 & K_{44}^2 \end{bmatrix}, \quad f^2 = \begin{Bmatrix} f_1^2 \\ f_2^2 \\ f_3^2 \\ f_4^2 \end{Bmatrix}
+$$
+Since this system has 6 independent degrees of freedom, the global system will be:
+$$
+\left\{ K \right\}_{6\times 6}\left\{ W \right\}_{6\times 6}=\left\{ f \right\}_{6\times 6}
+$$
+Assemble @eq-2-1 and @eq-2-2,
+$$
+\begin{bmatrix}  K_{11}^1 & K_{12}^1 & K_{13}^1 & K_{14}^1 & 0 & 0 \\  K_{21}^1 & K_{22}^1 & K_{23}^1 & K_{24}^1 & 0 & 0 \\  K_{31}^1 & K_{32}^1 & K_{33}^1 + K_{11}^2 & K_{34}^1 + K_{12}^2 & K_{13}^2 & K_{14}^2 \\  K_{41}^1 & K_{42}^1 & K_{43}^1 + K_{21}^2 & K_{44}^1 + K_{22}^2 & K_{23}^2 & K_{24}^2 \\  0 & 0 & K_{31}^2 & K_{32}^2 & K_{33}^2 & K_{34}^2 \\  0 & 0 & K_{41}^2 & K_{42}^2 & K_{43}^2 & K_{44}^2  \end{bmatrix}  \begin{Bmatrix} W_1 \\ W_2 \\ W_3 \\ W_4 \\ W_5 \\ W_6 \end{Bmatrix} =  \begin{Bmatrix} f_1^1 \\ f_2^1 \\ f_3^1 + f_1^2 \\ f_4^1 + f_2^2 \\ f_3^2 \\ f_4^2 \end{Bmatrix}
+$$ {#eq-global-system}
+
+Substituting @eq-2-1, @eq-2-2, and @eq-2-3 into @eq-global-system, we have,
+$$
+\begin{bmatrix}
+\frac{12 EI}{h^{3}} & -\frac{6 EI}{h^{2}} & -\frac{12 EI}{h^{3}} & -\frac{6 EI}{h^{2}} & 0 & 0 \\
+-\frac{6 EI}{h^{2}} & \frac{4 EI}{h} & \frac{6 EI}{h^{2}} & \frac{2 EI}{h} & 0 & 0 \\
+-\frac{12 EI}{h^{3}} & \frac{6 EI}{h^{2}} & \frac{24 EI}{h^{3}} & 0 & -\frac{12 EI}{h^{3}} & -\frac{6 EI}{h^{2}} \\
+-\frac{6 EI}{h^{2}} & \frac{2 EI}{h} & 0 & \frac{8 EI}{h} & \frac{6 EI}{h^{2}} & \frac{2 EI}{h} \\
+0 & 0 & -\frac{12 EI}{h^{3}} & \frac{6 EI}{h^{2}} & \frac{12 EI}{h^{3}} & \frac{6 EI}{h^{2}} \\
+0 & 0 & -\frac{6 EI}{h^{2}} & \frac{2 EI}{h} & \frac{6 EI}{h^{2}} & \frac{4 EI}{h}
+\end{bmatrix} \begin{bmatrix} W_1 \\ W_2 \\ W_3 \\ W_4 \\ W_5 \\ W_6 \end{bmatrix} = \begin{Bmatrix} \frac{q_0 h}{2} \\ -\frac{q_0 h^{2}}{12} \\ \frac{q_0 h}{2} \\ \frac{q_0 h^{2}}{12} \\ 0 \\ 0 \end{Bmatrix}
+$$
+
+## III. Implement the boundary conditions.  
+
+In this problem, the beam is fixed at both ends, so,
+$$
+\begin{align*}
+w_1^1=w_2^2=0\\
+\theta_1^1=\theta_2^2=0
+\end{align*}
+$$
+
+
+Per the relationship of the @fig-symbol, $W_1=W_2=W_5=W_6=0$. Set the elements of the corresponding row and f  are 0. @eq- becomes as follows:
+$$
+\begin{bmatrix}
+1 & 0 & 0 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\
+-\frac{12 EI}{h^{3}} & \frac{6 EI}{h^{2}} & \frac{24 EI}{h^{3}} & 0 & -\frac{12 EI}{h^{3}} & -\frac{6 EI}{h^{2}} \\
+-\frac{6 EI}{h^{2}} & \frac{2 EI}{h} & 0 & \frac{8 EI}{h} & \frac{6 EI}{h^{2}} & \frac{2 EI}{h} \\
+0 & 0 & 0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 0 & 0 & 1
+\end{bmatrix} \begin{bmatrix} W_1 \\ W_2 \\ W_3 \\ W_4 \\ W_5 \\ W_6 \end{bmatrix} = \begin{Bmatrix} 0 \\ 0 \\ \frac{q_0 h}{2} \\ \frac{q_0 h^{2}}{12} \\ 0 \\ 0 \end{Bmatrix}
+$$ {#eq-3-2}
+
+
+## IV. Solve for the nodal values and plot $W(x)$
+
+Given: $h = 1 m \quad q_0 = 100 N/m \quad EI = 106 Nm^2$
+
+Use Matlab to solve @eq-3-2. The source code is as follows:
+
+```text
+W =
+
+    0.0208
+    0.0104
+```
+
+To construct the full solution:
+$$
+w^e(x) = \sum_{j=1}^{4} W_j \psi_j(x)
+$$
+For element 1,
+$$
+\begin{align*}
+w^1(x) = \sum_{j=1}^{4} W_j \psi_j(x) \\
+=0\times \psi_1 +0\times \psi_2 +W_3\psi_3+W_4\psi_4\\
+=0.0208(3x^2 - 2x^3) +0.0104 (-x^2 + x^3)
+\end{align*}
+$$
+For  element 2,
+$$
+\begin{align*}
+w^2(x) = \sum_{j=1}^{4} W_j \psi_j(x) \\
+=W_3\psi_1+W_4\psi_2 + 0\times \psi_3 +0\times \psi_4\\
+= 0.0208(1 - 3\bar{x}^2 + 2\bar{x}^3) + 0.0104(\bar{x} - 2\bar{x}^2 + \bar{x}^3)
+\end{align*}
+$$
+Equation for Element 2 (using global $x$): Replace $\bar{x}$ with $(x-1)$:
+
+$$W_2(x) = \frac{25}{24EI} \left[ 2 - (x-1) - 4(x-1)^2 + 3(x-1)^3 \right] \quad \text{for } 1 \le x \le 2$$
+
+# Question 2
+
+
+
+![image-20260206094144385](./assets/image-20260206094144385.png)
+
+Given:
+$$
+\begin{aligned}
+E &= 100~\text{GPa} \\
+L &= 1~\text{m} \\
+t &= 0.1~\text{m} \quad (\text{Square Cross Section}) \\
+F_0 &= 100~\text{N} \\
+M_0 &= -10~\text{N}\cdot\text{m} \quad (\text{J.N. Reddy Convention}) \\
+q(x) &= -100x + 100
+\end{aligned}
+$$
+
+## I. Find the element wise stiffness matrix and force vectors.  
+
+The stiffness matrix and force vectors will have the following form:
+$$
+K^{e} = \frac{2 E^{e} I^{e}}{L_{e}^{3}}
+\begin{bmatrix}
+6 & -3L_e & -6 & -3L_e \\
+-3L_e & 2L_e^{2} & 3L_e & L_e^{2} \\
+-6 & 3L_e & 6 & 3L_e \\
+-3L_e & L_e^{2} & 3L_e & 2L_e^{2}
+\end{bmatrix}
+$$
+
+$$
+f^e = \left\{ \int_{x_1^e}^{x_2^e} \psi_i^e q dx \right\}
+$$
+
+## II. Assemble the system. 
+
+For this beam, we use two beam elements to discretize and assemble it.
+
+![image-20260206095749921](./assets/image-20260206095749921.png)
+
+Each beam element has 4 degrees of freedom. Assign a coordinate system as follows:
+
+- $x_n^e$: Position of node $n$ for element $e$
+- $w_n^e$: Local Transverse displacement of node $n$ for element $e$
+- $\theta_n$: Local Slope of node $n$ for element $e$
+- $W$: Global degree of freedom
+
+For element 1,
+$$
+K^1 = \begin{bmatrix}  K_{11}^1 & K_{12}^1 & K_{13}^1 & K_{14}^1 \\ K_{21}^1 & K_{22}^1 & K_{23}^1 & K_{24}^1 \\ K_{31}^1 & K_{32}^1 & K_{33}^1 & K_{34}^1 \\ K_{41}^1 & K_{42}^1 & K_{43}^1 & K_{44}^1  \end{bmatrix}, \quad  f^1 = \begin{Bmatrix}  f_1^1 \\  f_2^1 \\  f_3^1 \\  f_4^1  \end{Bmatrix}
+$$
+For element 2,
+$$
+K^2 = \begin{bmatrix} K_{11}^2 & K_{12}^2 & K_{13}^2 & K_{14}^2 \\ K_{21}^2 & K_{22}^2 & K_{23}^2 & K_{24}^2 \\ K_{31}^2 & K_{32}^2 & K_{33}^2 & K_{34}^2 \\ K_{41}^2 & K_{42}^2 & K_{43}^2 & K_{44}^2 \end{bmatrix}, \quad f^2 = \begin{Bmatrix} f_1^2 \\ f_2^2 \\ f_3^2 \\ f_4^2 \end{Bmatrix}
+$$
+Since this system has 6 independent degrees of freedom, the global system will be:
+$$
+\left\{ K \right\}_{6\times 6}\left\{ W \right\}_{6\times 6}=\left\{ f \right\}_{6\times 6}
+$$
+Assemble @eq-2-1 and @eq-2-2,
+$$
+\begin{bmatrix}  K_{11}^1 & K_{12}^1 & K_{13}^1 & K_{14}^1 & 0 & 0 \\  K_{21}^1 & K_{22}^1 & K_{23}^1 & K_{24}^1 & 0 & 0 \\  K_{31}^1 & K_{32}^1 & K_{33}^1 + K_{11}^2 & K_{34}^1 + K_{12}^2 & K_{13}^2 & K_{14}^2 \\  K_{41}^1 & K_{42}^1 & K_{43}^1 + K_{21}^2 & K_{44}^1 + K_{22}^2 & K_{23}^2 & K_{24}^2 \\  0 & 0 & K_{31}^2 & K_{32}^2 & K_{33}^2 & K_{34}^2 \\  0 & 0 & K_{41}^2 & K_{42}^2 & K_{43}^2 & K_{44}^2  \end{bmatrix}  \begin{Bmatrix} W_1 \\ W_2 \\ W_3 \\ W_4 \\ W_5 \\ W_6 \end{Bmatrix} =  \begin{Bmatrix} f_1^1 \\ f_2^1 \\ f_3^1 + f_1^2 \\ f_4^1 + f_2^2 \\ f_3^2 \\ f_4^2 \end{Bmatrix}
+$$
+
+
+## III. Implement the boundary conditions.  
+
+
+
+## IV. Solve for the nodal values and plot W(x)
