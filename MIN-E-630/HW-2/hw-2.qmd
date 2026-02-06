@@ -124,7 +124,7 @@ The paramertes of the shaft is shown in the @fig-shaft.
 
 # Report the "Capital Costs" to build Adit#2 and the shaft
 
-The capital costs to build Adit #2 and the shaft are shown in the @tab-capital-costs.
+The capital costs to build Adit #2 and the shaft are shown in the @tbl-capital-costs.
 
 | name     | Year 1        | Year 2        | Year 3 | Year 4        | Year 5        | …    | Year 12        | Year 13        |
 | -------- | ------------- | ------------- | ------ | ------------- | ------------- | ---- | -------------- | -------------- |
@@ -132,14 +132,41 @@ The capital costs to build Adit #2 and the shaft are shown in the @tab-capital-c
 | Adit #1  | $4,915,392.93 | $4,915,392.93 | $0     | $0            | $0            | …    | $0             | $0             |
 | Adit #2  | $0            | $0            | $0     | $4,805,504.19 | $4,805,504.19 | …    | $0             | $0             |
 | Drifts   | $0            | $600,100.10   | $0     | $0            | $0            | …    | $0             | $0             |
-:{#tbl-capital-costs}
+:Capital Costs {#tbl-capital-costs}
 
 # What are the Total Capital Cost and Total Operating Cost for the whole project?
 
-The executive summary of the total project cost is shown in the @fig-exec-summary.
+The executive summary of the total project cost is shown in the following.
 
-![Executive summary](./assets/image-20260203160640158.png){#fig-exec-summary}
+![The sequence 1 of Executive summary](./assets/image-20260205114013416.png){#fig-exec-summary-1}
+
+From @fig-exec-summary-1,  we plan to mine 76800 tonnes, so the total operating cost of sequence 1 is:
+
+$$
+768000\times 126.12= 96860160
+$$
+
+![The sequence 2 of Executive summary](./assets/image-20260205113422674.png){#fig-exec-summary-2}
+
+
+From @fig-exec-summary-2 ,  we plan to mine 76800 tonnes, so the total operating cost of sequence 2 is:
+
+$$
+4096000\times 98.42= 403128320
+$$
+
+![The sequence 3 of Executive summary](./assets/image-20260205113508223.png){#fig-exec-summary-3}
+
+From @fig-exec-summary-3,  we plan to mine 76800 tonnes, so the total operating cost of sequence 3 is:
+
+$$
+3336000\times 98.04= 327061440
+$$
+
+Thus, the total operating costs are 327061440+403128320+96860160=827049920.
+
+The total capital costs are 131600+5801960+57,181,952.01=63115512.01
 
 Based on the total project cost summary, the capital costs are listed as annual expenditures across the 22-year project timeline. Summing the values as follows: which includes equipment purchase, pre-production development, surface facilities, working capital, engineering, management, and contingency)
 
-The "Total Operating Costs" sums the individual components: supplies, labor, equipment operation, and miscellaneous for each year of production (Years 3 to 22).
+The "Total Operating Costs" sums the individual components: supplies, labor, equipment operation, and miscellaneous for each year of production (Years 3 to 22). 

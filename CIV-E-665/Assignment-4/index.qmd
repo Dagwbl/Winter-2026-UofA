@@ -199,6 +199,30 @@ $$
 u(x) \approx 7.9969638x - 0.7052971x^2
 $$ {#eq-2-14}
 
+Plot the Exact and the Approximate Solution using the Ritz/Galerkin Method as shown in @fig-2:
+
+![The comparison between exact and  Ritz/Galerkin solutions](./assets/image-20260205212355635.png){#fig-2}
+
+```{matlab}
+% Exact solution
+x = linspace(0, 1, 400);
+u_exact = -(1/8)*x.^4 - (5/6)*x.^3 + (3/4)*x.^2 + (15/2)*x;
+% Ritz/Galerkin approximate solution
+c1 = 7.9969638;
+c2 = -0.7052971;
+u_approx = c1*x + c2*x.^2;
+
+plot(x, u_exact, 'b-', 'LineWidth', 2);
+hold on;
+plot(x, u_approx, 'r--', 'LineWidth', 2);
+legend('Exact Solution', 'Ritz/Galerkin Approximation');
+xlabel('x');
+ylabel('u(x)');
+title('Exact vs. Ritz/Galerkin Approximate Solution');
+grid on;
+hold off;
+```
+
 ## III. Find the approximate solution using FEM with two linear elements
 
 ### Discretization
