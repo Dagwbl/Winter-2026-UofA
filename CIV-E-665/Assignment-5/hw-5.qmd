@@ -147,15 +147,17 @@ $$ {#eq-3-2}
 
 ## IV. Solve for the nodal values and plot $W(x)$
 
-Given: $h = 1 m \quad q_0 = 100 N/m \quad EI = 106 Nm^2$
+Given: $h = 1 m \quad q_0 = 100 N/m \quad EI = 10^6 Nm^2$
 
 Use Matlab to solve @eq-3-2. The source code is as follows:
 
 ```text
 W =
 
-    0.0208
-    0.0104
+   1.0e-05 *
+
+    0.2083
+    0.1042
 ```
 
 To construct the full solution:
@@ -182,6 +184,8 @@ Equation for Element 2 (using global $x$): Replace $\bar{x}$ with $(x-1)$:
 
 $$W_2(x) = \frac{25}{24EI} \left[ 2 - (x-1) - 4(x-1)^2 + 3(x-1)^3 \right] \quad \text{for } 1 \le x \le 2$$
 
+![image-20260209104812951](./assets/image-20260209104812951.png)
+
 # Question 2
 
 
@@ -200,21 +204,82 @@ q(x) &= -100x + 100
 \end{aligned}
 $$
 
+First, calculate the bending stiffness $EI$ and the element constant.
+
+- Moment of Inertia ($I$): For a square cross-section with side $t = 0.1 \text{ m}$:
+
+  $$I = \frac{t^4}{12} = \frac{(0.1)^4}{12} = \frac{0.0001}{12} = 8.333 \times 10^{-6} \text{ m}^4$$
+
+- Bending Stiffness ($EI$): Given $E = 100 \text{ GPa} = 100 \times 10^9 \text{ Pa}$:
+
+  $$EI = (100 \times 10^9) \times \left( \frac{10^{-4}}{12} \right) = \frac{10^7}{12} \approx 833,333.33 \text{ N}\cdot\text{m}^2$$
+
+- Element Length ($h_e$): Two elements for $L=1 \text{ m}$; $h_e = \frac{L}{2} = 0.5 \text{ m}$
+
+- Stiffness Coefficient ($C$): This constant appears in the stiffness matrix:
+
+  $$C = \frac{2EI}{h_e^3} = \frac{2\times 10^7 / 12}{(0.5)^3} = \frac{2\times 10^7}{12 \times 0.125} = \frac{2\times10^7}{1.5} \approx 13.3334 \times 10^6 \text{ N}/\text{m}$$
+
 ## I. Find the element wise stiffness matrix and force vectors.  
 
-The stiffness matrix and force vectors will have the following form:
+We define the local stiffness matrix and force vector for a single element $e$.
+
+Let $L_e = 0.5$, $E = 100 \text{ GPa}$, $I = 8.333 \times 10^{-6} \text{ m}^4$.
+
+### A. Stiffness Matrix 
+
+Using the formula you provided previously:
 $$
-K^{e} = \frac{2 E^{e} I^{e}}{L_{e}^{3}}
-\begin{bmatrix}
-6 & -3L_e & -6 & -3L_e \\
--3L_e & 2L_e^{2} & 3L_e & L_e^{2} \\
--6 & 3L_e & 6 & 3L_e \\
--3L_e & L_e^{2} & 3L_e & 2L_e^{2}
-\end{bmatrix}
+k^e = \frac{2EI}{L_e^3} \begin{bmatrix} 6 & -3L_e & -6 & -3L_e \\ -3L_e & 2L_e^2 & 3L_e & L_e^2 \\ -6 & 3L_e & 6 & 3L_e \\ -3L_e & L_e^2 & 3L_e & 2L_e^2 \end{bmatrix}
+$$
+Substitute C and L into @eq-211,
+$$
+\begin{aligned}
+k^e&= C \begin{bmatrix} 6 & -3(0.5) & -6 & -3(0.5) \\ -3(0.5) & 2(0.5)^2 & 3(0.5) & (0.5)^2 \\ -6 & 3(0.5) & 6 & 3(0.5) \\ -3(0.5) & (0.5)^2 & 3(0.5) & 2(0.5)^2 \end{bmatrix} \\
+&= 13.3334 \times 10^6 \begin{bmatrix} 6 & -1.5 & -6 & -1.5 \\ -1.5 & 0.5 & 1.5 & 0.25 \\ -6 & 1.5 & 6 & 1.5 \\ -1.5 & 0.25 & 1.5 & 0.5 \end{bmatrix}
+\end{aligned}
 $$
 
+It applies to both Element 1 and Element 2 since they have identical geometry and material.
+
+B. Distributed Load Vector ($f^e_{dist}$)
+
+For the distributed load $q(x) = -100x + 100$:
+
+- Element 1 ($e^1$): $x \in [0, 0.5]$. Load varies linearly from $q_a = 100$ to $q_b = 50$.
+- Element 2 ($e^2$): $x \in [0.5, 1.0]$. Load varies linearly from $q_a = 50$ to $q_b = 0$.
+
+We have the shape functions as follows:
 $$
-f^e = \left\{ \int_{x_1^e}^{x_2^e} \psi_i^e q dx \right\}
+\begin{aligned}
+\psi_1^e(x) &= 1 - 3\left(\frac{\bar{x}}{L_e}\right)^2 + 2\left(\frac{\bar{x}}{L_e}\right)^3 \\
+\psi_2^e(x) &= -\bar{x}\left(1 -  \frac{\bar{x}}{L_e}\right)^2\\
+\psi_3^e(x) &= 3\left(\frac{\bar{x}}{L_e}\right)^2 - 2\left(\frac{\bar{x}}{L_e}\right)^3 \\
+\psi_4^e(x) &= -\bar{x}\left(-\frac{\bar{x}}{L_e} + \left(\frac{\bar{x}}{L_e}\right)^2\right)
+\end{aligned}
+$$
+
+For a linear load varying from $q_a$ (left) to $q_b$ (right) over length $L_e$, the consistent force vector is:
+
+For element 1:
+
+$$
+\begin{aligned}
+f_1^1 = \int_0^{0.5} \psi_1^1(x) q(x) dx = \int_0^{0.5} \left(1 - 3\left(\frac{x}{0.5}\right)^2 + 2\left(\frac{x}{0.5}\right)^3\right) (-100x + 100) dx = 21.25 \\
+\\ f_2^1 = \int_0^{0.5} \psi_2^1(x) q(x) dx= \int_0^{0.5} \left(-x\left(1 -  \frac{x}{0.5}\right)^2\right) (-100x + 100) dx = - \frac{5}{3} \\
+\\ f_3^1 = \int_0^{0.5} \psi_3^1(x) q(x) dx= \int_0^{0.5} \left(3\left(\frac{x}{0.5}\right)^2 - 2\left(\frac{x}{0.5}\right)^3\right) (-100x + 100) dx = 16.25 \\
+\\ f_4^1 = \int_0^{0.5} \psi_4^1(x) q(x) dx= \int_0^{0.5} \left(-x\left(-\frac{x}{0.5} + \left(\frac{x}{0.5}\right)^2\right)\right) (-100x + 100) dx = \frac{35}{24}
+\end{aligned}
+$$
+
+For element 2:
+$$
+\begin{aligned}
+f_1^2 = \int_{0.5}^{1} \psi_1^2(x) q(x) dx = \int_{0.5}^{1} \left(1 - 3\left(\frac{x-0.5}{0.5}\right)^2 + 2\left(\frac{x-0.5}{0.5}\right)^3\right) (-100x + 100) dx = 8.75 \\
+f_2^2 = \int_{0.5}^{1} \psi_2^2(x) q(x) dx= \int_{0.5}^{1} \left(-(x-0.5)\left(1 -  \frac{x-0.5}{0.5}\right)^2\right) (-100x + 100) dx = -0.625 \\
+f_3^2 = \int_{0.5}^{1} \psi_3^2(x) q(x) dx= \int_{0.5}^{1} \left(3\left(\frac{x-0.5}{0.5}\right)^2 - 2\left(\frac{x-0.5}{0.5}\right)^3\right) (-100x + 100) dx = 3.75 \\
+f_4^2 = \int_{0.5}^{1} \psi_4^2(x) q(x) dx= \int_{0.5}^{1} \left(-(x-0.5)\left(-\frac{x-0.5}{0.5} + \left(\frac{x-0.5}{0.5}\right)^2\right)\right) (-100x + 100) dx = -\frac{5}{12}
+\end{aligned}
 $$
 
 ## II. Assemble the system. 
@@ -230,26 +295,76 @@ Each beam element has 4 degrees of freedom. Assign a coordinate system as follow
 - $\theta_n$: Local Slope of node $n$ for element $e$
 - $W$: Global degree of freedom
 
-For element 1,
-$$
-K^1 = \begin{bmatrix}  K_{11}^1 & K_{12}^1 & K_{13}^1 & K_{14}^1 \\ K_{21}^1 & K_{22}^1 & K_{23}^1 & K_{24}^1 \\ K_{31}^1 & K_{32}^1 & K_{33}^1 & K_{34}^1 \\ K_{41}^1 & K_{42}^1 & K_{43}^1 & K_{44}^1  \end{bmatrix}, \quad  f^1 = \begin{Bmatrix}  f_1^1 \\  f_2^1 \\  f_3^1 \\  f_4^1  \end{Bmatrix}
-$$
-For element 2,
-$$
-K^2 = \begin{bmatrix} K_{11}^2 & K_{12}^2 & K_{13}^2 & K_{14}^2 \\ K_{21}^2 & K_{22}^2 & K_{23}^2 & K_{24}^2 \\ K_{31}^2 & K_{32}^2 & K_{33}^2 & K_{34}^2 \\ K_{41}^2 & K_{42}^2 & K_{43}^2 & K_{44}^2 \end{bmatrix}, \quad f^2 = \begin{Bmatrix} f_1^2 \\ f_2^2 \\ f_3^2 \\ f_4^2 \end{Bmatrix}
-$$
+The global system has 3 nodes and 6 Degrees of Freedom (DOFs): $W_1, \theta_1, W_2, \theta_2, W_3, \theta_3$.
+
 Since this system has 6 independent degrees of freedom, the global system will be:
 $$
 \left\{ K \right\}_{6\times 6}\left\{ W \right\}_{6\times 6}=\left\{ f \right\}_{6\times 6}
 $$
 Assemble @eq-2-1 and @eq-2-2,
+
+We assemble the global system of size $6 \times 6$ to solve for the vector $\mathbf{W} = [W_1, W_2, W_3, W_4, W_5, W_6]^T$.
+
+A. Element Mapping
+
+Element 1 DOFs: Corresponds to global indices [1, 2, 3, 4].
 $$
-\begin{bmatrix}  K_{11}^1 & K_{12}^1 & K_{13}^1 & K_{14}^1 & 0 & 0 \\  K_{21}^1 & K_{22}^1 & K_{23}^1 & K_{24}^1 & 0 & 0 \\  K_{31}^1 & K_{32}^1 & K_{33}^1 + K_{11}^2 & K_{34}^1 + K_{12}^2 & K_{13}^2 & K_{14}^2 \\  K_{41}^1 & K_{42}^1 & K_{43}^1 + K_{21}^2 & K_{44}^1 + K_{22}^2 & K_{23}^2 & K_{24}^2 \\  0 & 0 & K_{31}^2 & K_{32}^2 & K_{33}^2 & K_{34}^2 \\  0 & 0 & K_{41}^2 & K_{42}^2 & K_{43}^2 & K_{44}^2  \end{bmatrix}  \begin{Bmatrix} W_1 \\ W_2 \\ W_3 \\ W_4 \\ W_5 \\ W_6 \end{Bmatrix} =  \begin{Bmatrix} f_1^1 \\ f_2^1 \\ f_3^1 + f_1^2 \\ f_4^1 + f_2^2 \\ f_3^2 \\ f_4^2 \end{Bmatrix}
+K^{(1)} = 13.3334 \times 10^6 \begin{bmatrix} 6 & -1.5 & -6 & -1.5 \\ -1.5 & 0.5 & 1.5 & 0.25 \\ -6 & 1.5 & 6 & 1.5 \\ -1.5 & 0.25 & 1.5 & 0.5 \end{bmatrix}, \quad F^{(1)} = \begin{bmatrix} 21.25 \\ -\frac{5}{3} \\ 16.25 \\ \frac{35}{24} \end{bmatrix}
 $$
 
+
+Element 2 DOFs: Corresponds to global indices [3, 4, 5, 6].
+$$
+K^{(2)} = 13.3334 \times 10^6 \begin{bmatrix} 6 & -1.5 & -6 & -1.5 \\ -1.5 & 0.5 & 1.5 & 0.25 \\ -6 & 1.5 & 6 & 1.5 \\ -1.5 & 0.25 & 1.5 & 0.5 \end{bmatrix}, \quad F^{(2)} = \begin{bmatrix} 8.75 \\ -0.625 \\ 3.75 \\ \frac{5}{12} \end{bmatrix}
+$$
+
+
+B. Global Stiffness Matrix
+
+Overlap occurs at indices 3 and 4 (Node 2).
+$$
+\begin{aligned}
+K_{global} &= \begin{bmatrix} k_{11}^1 & k_{12}^1 & k_{13}^1 & k_{14}^1 & 0 & 0 \\ k_{21}^1 & k_{22}^1 & k_{23}^1 & k_{24}^1 & 0 & 0 \\ k_{31}^1 & k_{32}^1 & \mathbf{k_{33}^1 + k_{11}^2} & \mathbf{k_{34}^1 + k_{12}^2} & k_{13}^2 & k_{14}^2 \\ k_{41}^1 & k_{42}^1 & \mathbf{k_{43}^1 + k_{21}^2} & \mathbf{k_{44}^1 + k_{22}^2} & k_{23}^2 & k_{24}^2 \\ 0 & 0 & k_{31}^2 & k_{32}^2 & k_{33}^2 & k_{34}^2 \\ 0 & 0 & k_{41}^2 & k_{42}^2 & k_{43}^2 & k_{44}^2 \end{bmatrix} \\
+&= 13.3334 \times 10^6 \begin{bmatrix} 6 & -1.5 & -6 & -1.5 & 0 & 0 \\ -1.5 & 0.5 & 1.5 & 0.25 & 0 & 0 \\ -6 & 1.5 & 12 & 0 & -6 & -1.5 \\ -1.5 & 0.25 & 0 & 1 & 1.5 & 0.25 \\ 0 & 0 & -6 & 1.5 & 6 & 1.5 \\ 0 & 0 & -1.5 & 0.25 & 1.5 & 0.5 \end{bmatrix}
+\end{aligned}
+$$
+
+
+C. Global Force Vector
+
+Includes distributed loads plus the point loads ($F_0, M_0$) at Node 3 (indices 5 and 6).
+$$
+\begin{aligned}
+F_{global} = \begin{bmatrix} f_1^1 \\ f_2^1 \\ f_3^1 + f_1^2 \\ f_4^1 + f_2^2 \\ f_3^2 + F_0 \\ f_4^2 + M_0 \end{bmatrix}
+\\
+= \begin{bmatrix} 21.25 \\ -\frac{5}{3} \\ 16.25 + 8.75 \\ \frac{35}{24} - 0.625 \\ 3.75 + 100 \\ \frac{5}{12} - 10 \end{bmatrix}
+\end{aligned}
+$$
+Where:
+
+- $F_0 = 100$
+- $M_0 = -10$ (Ensure this sign is consistent with your clockwise positive convention).
 
 ## III. Implement the boundary conditions.  
 
+The beam is fixed at the left end (Node 1). At $x=0$: $W_1 = 0$ and $W_2 = 0$.
+
+This means we remove the **1st and 2nd rows** and the **1st and 2nd columns** from the system. We are left with a $4 \times 4$ system solving for indices 3, 4, 5, 6.
+
+So, we can reduce System:
+$$
+\mathbf{K}_{red} = 13.3334 \times 10^6 \begin{bmatrix} 12 & 0 & -6 & -1.5 \\ 0 & 1 & 1.5 & 0.25 \\ -6 & 1.5 & 6 & 1.5 \\ -1.5 & 0.25 & 1.5 & 0.5 \end{bmatrix}
+$$
+
+$$
+\mathbf{F}_{red} = \begin{bmatrix} 16.25 + 8.75 \\ \frac{35}{24} - 0.625 \\ 3.75 + 100 \\ \frac{5}{12} - 10 \end{bmatrix}
+$$
+
+
+Final Solution:
+$$
+\mathbf{W}_{red} = \mathbf{K}_{red}^{-1} \mathbf{F}_{red}
+$$
 
 
 ## IV. Solve for the nodal values and plot W(x)
