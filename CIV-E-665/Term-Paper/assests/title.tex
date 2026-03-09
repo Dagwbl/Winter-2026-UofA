@@ -1,0 +1,83 @@
+% UofA Engineering Assignment Title Page Partial (Full-Page Cover Style)
+% This partial customizes the title page for University of Alberta engineering assignments
+
+% Page geometry and spacing
+\setlength{\textwidth}{6.5in}
+\setlength{\textheight}{9.in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\headheight}{0in}
+
+\usepackage[margin=2cm]{geometry}
+
+% Color definitions for code highlighting (if needed)
+\usepackage{color}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Graphics and figures
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{epsfig,graphicx}
+\usepackage{multicol}
+
+% Mathematics packages
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{eucal}
+
+% Custom math operators
+\DeclareMathOperator{\tr}{Tr}
+\newcommand*{\op}[1]{\check{\mathbf#1}}
+\newcommand{\bra}[1]{\langle #1 |}
+\newcommand{\ket}[1]{| #1 \rangle}
+\newcommand{\braket}[2]{\langle #1 | #2 \rangle}
+\newcommand{\mean}[1]{\langle #1 \rangle}
+\newcommand{\opvec}[1]{\check{\vec #1}}
+\renewcommand{\sp}[1]{$${\begin{split}#1\end{split}}$$}
+
+% Custom full-page cover for UofA Engineering Assignment
+\renewcommand\maketitle{
+    \begin{titlepage}
+        \centering
+        
+        \vspace*{3cm}
+        
+        % Logo at the top
+        \includegraphics[height=4cm]{$if(logo)$$logo$$else$logo.png$endif$}
+        
+        \vspace{2cm}
+        
+        % University and Faculty (Optional: adjust if needed)
+        {\scshape\LARGE University of Alberta \par}
+        \vspace{0.5cm}
+        {\scshape\Large Faculty of Engineering \par}
+        
+        \vspace{2.5cm}
+        
+        % Course Info
+        {\Large \textbf{$if(course)$$course$$endif$} \par}
+        \vspace{1cm}
+        
+        % Assignment Title with horizontal rules
+        \rule{\linewidth}{0.5mm} \\[0.4cm]
+        {\huge \bfseries $if(assignment)$$assignment$$endif$ \par}
+        \vspace{0.4cm}
+        \rule{\linewidth}{0.5mm}
+        
+        \vfill
+        
+        % Student Info
+        {\large
+        \textbf{Student Name:} $if(author)$$author$$endif$ \\
+        \vspace{0.3cm}
+        \textbf{Student ID:} $if(student-id)$$student-id$$endif$ \\
+        \vspace{0.3cm}
+        $if(date)$\textbf{Date:} $date$$endif$
+        \par}
+        
+        \vspace*{2cm}
+    \end{titlepage}
+}

@@ -1,45 +1,56 @@
 ---
-title: Proposal for Term Paper (CIV-E-665)
+course: "Proposal for Term Paper (CIV-E-665)"
+title: "Heat transfer across concrete cracks: quantifying thermal resistance using Abaqus"
 author: Jinpeng Zhu
+student-id: 1907843
 format:
-  # typst:
-  #   papersize: a5
-  #   margin:
-  #     x: 1cm
-  #     y: 1cm
-  #   columns: 1
-  #   fontsize: 11pt
-  #   line-spacing: 1.5
-  html:
-    fontsize: 12pt
-bibliography: ../../Zotero.bib
-bibliographystyle: chicago-author-date
-abstract: |
-  This proposal outlines the intended research for the term paper in CIV-E-665, focusing on the application of smart concrete and machine learning techniques for monitoring the curing process of concrete structures. The study aims to explore the integration of IoT sensors with self-sensing concrete to enhance real-time monitoring capabilities, ultimately improving construction quality and durability.
+  # html:
+  #   fontsize: 12pt
+  pdf:
+    pagesize: a4
+    fontsize: 11pt
+    linestretch: 1.4
+    template-partials: 
+      - ../../Assets/template/uofa-eng-assignment-partial/title.tex
+    pdf-engine: xelatex
+    fig-pos: H
+    logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
+    # keep-tex: true
+    number-sections: true
+    # include-in-header:
+    #   - text: |
+    #       \numberwithin{equation}{section}
+bibliography: ../../references.bib
 ---
 
-Key words: Smart Concrete, Machine Learning, Curing Monitoring, IoT Sensors, Self-Sensing.
+# Background and Motivation
+Cracking is common in concrete due to shrinkage, loading, and thermal cycling, and it can significantly affect heat transfer in addition to durability and strength, as shown in the @fig-fracture-demo. In underground structures, cold-region infrastructure, thermal protection systems, and subsurface energy applications, cracks influence serviceability, operational safety, and long-term performance.
 
-# Introduction 
+![The illustration of concrete cracks, which are simplified as a straight line in microperspective view in order to facilitate the exploration of its impact](./assests/fractures_demo.png){#fig-fracture-demo}
 
-> Introduce the problem
-> Describe its significance
-> Relevant literature review
+A crack interrupts solid conduction and forces heat to cross a gap (air, moisture, or infill), and in some cases radiation also contributes. This can produce a temperature change at the crack and reduce the effective thermal conductivity of the member. The magnitude of this thermal barrier depends mainly on the crack aperture $d$ (clearance) and the crack geometry, particularly whether the crack is planar or tortuous (which increases effective path length in 2D or interface area in 3D).
 
-# Literature Review
+Most existing approaches represent cracking through homogenized effective properties, but the thermal effect of a small number of controlled cracks is less directly quantified in a way that can be verified. This term paper will develop and verify an Abaqus-based FEM workflow to quantify heat transfer across cracked concrete, focusing on how crack aperture and crack geometry (planar versus tortuous) control the equivalent interface thermal resistance under prescribed thermal loading, while also using the project to build practical understanding of FEM modeling and how to apply it to real engineering problems. Assuming isotropic concrete to make sure the interpretation and validation possible.
 
-# Statement of the Problem
+# Methods
 
-# Observations and Discussions
+This study combines finite element modeling in Abaqus with simplified analytical checks to quantify crack-controlled thermal resistance in concrete. The properties of concrete and air are easy to get from previous literature or industry database.
 
-# Conclusions
+**Finite element simulation (Abaqus)**: The numerical work is organized into three geometry stages (see @fig-geometry): 1) single planar crack with uniform aperture $d$; 2) two planar cracks (two interfaces) each with aperture $d$; 3) single tortuous crack with the same nominal aperture $d$, but a longer crack path (2D) or larger effective interface area (3D). Thermal loading will be applied as prescribed temperatures $T_h$ and $T_c$ on opposite boundaries to create a steady temperature gradient and an approximately 1D heat-flow direction in the far field. Mechanical loading will be neglected to keep verification clean; crack aperture $d$ will be prescribed geometrically rather than computed from a coupled stress analysis.
 
-# References
+![The tentative geometry setting](./assests/geometry_setting.png){#fig-geometry}
 
-@kyrtsonisKonskyrtConcreteCrackDetectionSegmentation2026
+**Analytical verification**: Form Abaqus outputs, an equivalent area-specific interface resistance. For verification and applying the FEM knowledge from the class, another results from hand-verifying will be compared and discussed with the Abaqus outputs.
 
-
-
+# Tentative Timeline
 
 
-@mostafaLecturesIntroductionFinite2026
+| Week | Due Date | Main work                                                    |
+| ---- | -------- | ------------------------------------------------------------ |
+| 9    | Mar 03   | learning Abaqus|
+| 10   | Mar 10   | literature review|
+| 11   | Mar 17   | modeling|
+| 12   | Mar 24   | hand verification|
+| 13   | Mar 31   | organize and analysis results, draft manuscript |
+| 14   | Apr 07   | revise, finalize, and submit                                 |
+
