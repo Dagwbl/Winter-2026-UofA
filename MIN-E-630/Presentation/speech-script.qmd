@@ -1,0 +1,328 @@
+---
+course: "Underground Mining and Bulk Materials Handling\\newline (MIN E – 630)"
+author: "Jinpeng Zhu"
+date: today
+assignment: "Final Presentation"
+title: "Speech Script - Final Presentation"
+student-id: "1907843"
+instructor: "Wei Victor Liu"
+format:
+  pdf:
+    template-partials: 
+      - ../../Assets/template/uofa-eng-assignment-partial/MINE630/title.tex
+    pdf-engine: xelatex
+    fig-pos: H
+    logo: ../../Assets/template/uofa-eng-assignment-partial/logo.png
+    # keep-tex: true
+    number-sections: true
+    include-in-header:
+      - text: |
+          \usepackage{pdfpages}
+          \usepackage{enumitem}
+          \setlist[enumerate]{nosep}
+          \setlist[itemize]{nosep}
+bibliography: ../../references.bib
+---
+
+# Speech Script: MIN-E-630 Final Presentation
+
+**Presenter:** Jinpeng Zhu  
+**Duration:** 15 minutes  
+**Course:** Underground Mining and Bulk Materials Handling (MIN-E 630)  
+**Instructor:** Professor Wei Victor Liu
+
+---
+
+## Opening [~2 min]
+
+Good morning/afternoon, everyone.
+
+My name is Jinpeng Zhu. I'm a graduate student in Civil and Environmental Engineering at the University of Alberta.
+
+Today, I will present my term paper on **sensing technologies for cementitious ground support in underground mining**.
+
+This course is called "Underground Mining and Bulk Materials Handling," taught by Professor Wei Victor Liu.
+
+---
+
+## Agenda [~1 min]
+
+I will cover three main parts:
+
+**First**, my term paper — motivation, framing, and key takeaways.
+
+**Second**, beyond the paper — what I learned from writing and from this course.
+
+**Third**, insights and gains from this course.
+
+Let's begin.
+
+---
+
+## About Me [~1 min]
+
+Let me briefly introduce myself:
+
+- I am a graduate student in Civil and Environmental Engineering.
+- My interest is in **sensing + underground mining + decision-making**.
+- Today, my focus is on **lifecycle-oriented sensing for cementitious ground support**.
+
+---
+
+## Part 1: Background & Motivation [~2 min]
+
+**My term paper title is:**
+
+*"Sensing technologies for cementitious ground support systems in underground mining: advances, challenges, and future perspectives"*
+
+### Why this topic?
+
+When underground mines go deeper, they face:
+
+1. **High stress** — The rock pushes hard from all sides.
+2. **High temperature** — It gets hot underground.
+3. **Complex water** — Groundwater causes damage.
+
+Under these conditions, ground support becomes very important. And we can't easily see inside the rock to check if everything is okay. That's why we need sensors.
+
+---
+
+## Part 2: Cementitious Support Types [~2 min]
+
+Cementitious support appears in many forms:
+
+1. **Shotcrete** — Concrete sprayed onto tunnel walls (drifts, intersections).
+2. **Cast-in-place linings** — Concrete poured in place (shafts, chambers).
+3. **Cemented backfill** — A mixture of tailings and cement (stopes).
+4. **Grouted bolts/cables** — Bolts held in place by cement grout.
+
+These are everywhere in underground mining. They are the backbone of safety.
+
+### Why is it hard to manage?
+
+- **Performance changes with time** — It starts soft, then hardens, then degrades.
+- **Coupled hazards** — Stress, water, seismicity, and blasting all affect it together.
+- **Limited visibility** — We can't see inside. We can't easily verify.
+
+---
+
+## Part 3: Key Message [~2 min]
+
+**My paper does three things:**
+
+1. **Frames the problem** — Organized cementitious support monitoring into **five lifecycle phases**. Each phase asks different questions.
+
+2. **Links variables to decisions** — Connected what we measure (temperature, strain, cracking) to what we decide (can we re-enter? should we reinforce?).
+
+3. **Identifies the bottleneck** — The hardest part is not the sensors. It's making all the data work together. Communication, data fusion, analysis, and decision-making — that's where we need more work.
+
+---
+
+## Part 4: Five Lifecycle Phases [~4 min]
+
+### Phase I — Hours to Days (Placement and Early Age)
+
+**Questions:** When can we re-enter safely? Did we place it well (thickness/coverage)?
+
+**We measure:** Temperature → maturity → early strength
+
+*Simple example: Like baking bread — it's done when it reaches a certain temperature.*
+
+---
+
+### Phase II — Days to Weeks (Early Service)
+
+**Questions:** Is it carrying load as expected? Are we seeing early cracking or interface issues?
+
+**We measure:** Strain and stress
+
+*Simple example: When you lean on a table, it bends a little. Strain sensors tell us how much the support is bending.*
+
+---
+
+### Phase III — Months to Years (Long-term Degradation)
+
+**Questions:** Is it degrading (creep, corrosion, cracking)? When should we maintain, reinforce, or reassess capacity?
+
+**We measure:** Deformation over time, corrosion indicators
+
+*Simple example: Like a bridge that slowly sags over decades. We track this over time.*
+
+---
+
+### Phase IV — Dynamic Events (Blasting/Seismic)
+
+**Questions:** Can we detect dynamic events or hazards? Can we know what has changed due to these events?
+
+**We measure:** High-frequency signals (acoustic emission, microseismic)
+
+*Simple example: Like a car crash. The impact happens in milliseconds. Regular sensors are too slow.*
+
+---
+
+### Phase V — Post-event Assessment (Inspection Window)
+
+**Questions:** What changed (geometry, cracking, hidden defects)? Repair, reinforce, or abandon?
+
+**We measure:** Geometry, cracks, internal defects (LiDAR, photogrammetry, radar)
+
+*Simple example: Like a doctor using an X-ray to see inside.*
+
+---
+
+## Part 5: Technology Selection [~3 min]
+
+Six main technology groups:
+
+| Technology | What it measures | Example |
+|:-----------|:-----------------|:--------|
+| Thermal/Maturity | Temperature → strength | Thermocouples |
+| Mechanical | Stress, strain | Strain gauges |
+| Deformation | Movement, displacement | Extensometers |
+| Wave-based | Cracks, damage | Acoustic emission |
+| Durability | Corrosion, chemistry | Resistivity sensors |
+| Geometry | Shape, size | LiDAR scanning |
+
+**No single technology can do everything.** We must combine them based on the phase and the question.
+
+### Selection Process
+
+1. Define goals — What do we want to know?
+2. Assess constraints — What's the environment like?
+3. Screen technologies — Which sensors match our needs?
+4. Pilot test — Try it on-site before full deployment.
+
+---
+
+## Part 6: System Integration [~3 min]
+
+### Key Point
+
+**The sensors are not the hard part. Integration is the hard part.**
+
+The communication system is the core of the sensing system.
+
+- Easy to deploy and install
+- Strong penetration through rock
+- Compatibility and anti-interference ability
+- Currently, wire cable is widely used in underground mining, mainly for personnel positioning
+
+### Why integration is the bottleneck
+
+1. **Constrained communications**
+   - No GPS underground
+   - Complex tunnel geometry
+   - Metal and water block signals
+
+2. **Heterogeneous data**
+   - Point sensors give single numbers
+   - Distributed sensors give lines of data
+   - Visual sensors give images
+   - Acoustic sensors give sound data
+
+3. **Complex analysis**
+   - Decision-making needs comprehensive understanding
+   - We need to look at the big picture, not just one sensor
+
+*Simple example: Your car shows "low tire pressure" and "engine hot." These might be related, but one sensor can't tell you that. You need a system that connects the dots.*
+
+---
+
+## Part 7: Challenges & Future [~3 min]
+
+### Challenge 1: Sensor Longevity and Robustness
+
+Sensors must survive:
+
+- Water and humidity
+- Blasting vibration
+- Installation damage
+- Chemical attack from groundwater
+
+In underground mining, the support lasts for years. But sensors often fail after months. This is still a bottleneck.
+
+### Challenge 2: Transition from Monitoring to Active Control
+
+Most sites collect data but still decide by habit or experience.
+
+We need smarter models and clear rules that connect indicators to actions.
+
+The industry doesn't have motivation to invest in sensing systems. They only do what regulations require.
+
+### Challenge 3: Towards Self-Assessment and Self-Decision
+
+In the future, systems should check themselves and make basic decisions without human help:
+
+1. Detects abnormal strain
+2. Runs a quick analysis
+3. Sends an alert to the right person
+4. Logs the event for future reference
+
+This is possible with AI and automation. It's the direction of the future.
+
+---
+
+## Part 8: Learning from This Course [~3 min]
+
+Through this course, I realized that:
+
+1. **Writing is not easy** — Inputs and ideas are the pre-requisite. Good writing needs good ideas first.
+
+2. **Resources and support matter** — The instructor and university were critical to our learning and growth.
+
+3. **Knowledge comes from many places** — The really important knowledge might not come from the slides. It comes from discussions and observations with others.
+
+4. **Question industry practice** — It's not always right. It's better to understand the theory and principles behind the practice, and then make your own judgment.
+
+5. **Challenge the status quo** — Dare to challenge things that are not reasonable.
+
+6. **Focus on the target** — Don't just upgrade your engine. Focus on the target and notice the environment.
+
+---
+
+## Closing [~30 sec]
+
+**Thank you for your attention.**
+
+To summarize:
+
+- Sensing technologies are essential for underground mining safety.
+- No single sensor works for all situations.
+- The real challenge is system integration — making data useful for decisions.
+- The future is automation and self-assessment.
+
+I welcome your questions.
+
+---
+
+## Timing Guide
+
+| Section | Time |
+|:--------|-----:|
+| Opening | 2 min |
+| Agenda | 1 min |
+| About Me | 1 min |
+| Background & Motivation | 2 min |
+| Cementitious Support Types | 2 min |
+| Key Message | 2 min |
+| Five Lifecycle Phases | 4 min |
+| Technology Selection | 3 min |
+| System Integration | 3 min |
+| Challenges & Future | 3 min |
+| Learning from Course | 3 min |
+| Closing | 30 sec |
+| **Total** | **~15 min** |
+
+---
+
+## Notes
+
+Use this space for your personal notes:
+
+
+
+
+
+
+
+

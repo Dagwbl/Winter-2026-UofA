@@ -1,7 +1,7 @@
 ---
 title: "Final Presentation (MIN E 630)"
 subtitle: "Underground Mining and Bulk Materials Handling"
-shorttitle: "MIN E 630 | Wei Victor Liu"
+shorttitle: "MIN E 630 | Prof. Wei (Victor) Liu"
 institute: "University of Alberta"
 format: 
   revealjs:
@@ -19,6 +19,7 @@ format:
     toc: false
     number-sections: true
   beamer: 
+    urlcolor: blue
     aspectratio: 169
     theme: EastLansing
     fonttheme: professionalfonts
@@ -44,7 +45,7 @@ author:
     email: jinpeng6@ualberta.com
     affiliations: "Department of Civil and Environmental Engineering"
     instructor: Wei Victor Liu
-date: today
+date: 2026-04-02
 date-format: long
 # brand:
 #   typography: 
@@ -71,23 +72,11 @@ bibliography: ../../references.bib
 - Interest: sensing + underground mining+ decision-making
 - Focus today: lifecycle-oriented sensing for cementitious ground support
 
-::: {.notes}
-15 min target:
-- ~9 min term paper (high-level)
-- ~5 min personal reflection and values
-- ~1 min Q&A transition
-:::
-
 ## Background and motivation
 
 **Term paper title**: Sensing technologies for cementitious ground support systems in underground mining: advances, challenges, and future perspectives
 
 ![The location of my term paper](./Assets/venn_diagram.svg){#fig-term-paper-location width=30%}
-
-::: {.notes}
-Main message: cementitious ground support is critical, but we are information-poor underground.
-The paper is a structured way to ask: what can we measure across the lifecycle that actually changes decisions?
-:::
 
 ### Cementitious support is everywhere {.smaller}
 
@@ -115,8 +104,6 @@ The paper is a structured way to ask: what can we measure across the lifecycle t
 - Limited visibility and limited verification  
 
 
- 
-
 ::: {style="font-size: 0.5em; color: gray;"}
 \tiny
 \color{gray}
@@ -133,12 +120,6 @@ Image sources:
 :::
 :::
 
-
-
-::: {.notes}
-Keep it practical: these materials directly control re-entry, rehabilitation, and production continuity.
-:::
-
 ## Key message and contribution
 
 The excavation process of underground mining includes many complex procedures, harsh environments, and low visibility, so sensing technologies are necessary for improving productivity and safety.
@@ -149,10 +130,6 @@ This paper:
 - Links physical variables and sensing functions to operational decisions
 - Discuss why system integration (data transfer, fusion, analysis, and decision-making) is the bottleneck
 
-::: {.notes}
-Say it once, then move on.
-:::
-
 ## Lifecycle Framing: Lifecycle-oriented questions {.smaller}
 
 ::: columns
@@ -161,7 +138,7 @@ Say it once, then move on.
    + When can we re-enter safely?
    + Did we place it well (thickness/coverage)?
 2. Phase II - days to weeks
-   + Is it carrying load as expected?
+   + Is it carrying strength as expected?
    + Are we seeing early cracking or interface issues?
 3. Phase III - months to years
    + Is it degrading (creep, corrosion, cracking)?
@@ -178,21 +155,6 @@ Say it once, then move on.
 :::
 :::
 
-::: {.notes}
-Keep this slide decision-first and phase-based; avoid listing instruments.
-:::
-
-## Lifecycle challenges (map) {.stretch .compact}
-
-![Lifecycle map (variables -> sensing -> decisions)](./Assets/PhysicalVariable-2026-03-30-174441.png){#fig-lifecycle width=85%}
-
-
-::: {.notes}
-Use this to visually anchor the five phases and the cross-cutting constraints.
-Do not read every pill; point to 2-3 examples.
-:::
-
-
 ## Relationship between sensing and support principles 
 
 ::: {layout-ncol=2}
@@ -206,26 +168,34 @@ Do not read every pill; point to 2-3 examples.
 
 :::
 
-::: {.notes}
-There are two key point here, one is scene connection, common things
-anther is decision-making basis
-:::
+## Lifecycle challenges (map) {.stretch .compact}
+
+![Lifecycle map (variables -> sensing -> decisions)](./Assets/PhysicalVariable-2026-03-30-174441.png){#fig-lifecycle width=85%}
+
 
 ## Technology selection (From sensor to decision) {.stretch .compact}
 
-![Technology selection workflow (goals -> constraints -> screening -> pilot)](Assets/5-phase.png){#fig-selection width=85%}
+:::: {.columns}
 
+::: {.column width="70%"}
+![Technology selection workflow (goals -> constraints -> screening -> pilot)](Assets/5-phase.png){#fig-selection width=100%}
+
+\footnotesize
+Two short video: [Invisible dinosar](https://www.instagram.com/reel/DFNV9uiMTuD/), and [UPV test for concrete,NDT](https://www.youtube.com/watch?v=M9hkvS_OLmk)
+:::
+
+::: {.column width="30%"}
+\footnotesize
 - Thermal / maturity (temperature, early strength proxy)
-- Mechanical response (stress/strain)
-- Deformation (convergence, displacement)
+- Mechanical response (stress/strain, [vibrating wire](https://www.geosense.com/product-category/vw-strain-gauges/))
+- Deformation (displacement,[MDT](https://mdt.ca/products/instrumentation/))
 - Damage / wave-based (AE, UPV, microseismic)
 - Durability / chemical (corrosion, resistivity)
 - Geometry (LiDAR, photogrammetry)
 
-::: {.notes}
-Key point: pick functions based on decisions, not based on what is "cool".
-Stress: the value is not the sensor, it is the decision loop.
 :::
+
+::::
 
 ## System Integration: communication, fusion, analysis, and action
 
@@ -235,15 +205,9 @@ Stress: the value is not the sensor, it is the decision loop.
 - Easy to deploy and install, with strong penetration, compatibility and anti-interference ability
 - Currently, wire cable is widely used in underground mining, only for personnel positioning
 
-::: {.notes}
-Walk left to right in ~30 seconds.
-Use this as the bridge from visuals to integration.
-End with: "if it doesn't change an action, it's just data."
-:::
-
 ## Why integration is the bottleneck
 
-- Underground comms are constrained (geometry, obstacle, no GPS)
+- Underground comms are constrained (geometry, rock mass, no GPS)
 - Data is heterogeneous (multi-modal: discrete, ascoutic, visual, etc)
 - Data fusion analysis, and decision-making are based on comprehensive understanding of the system, not just anysigle sensor, or single measurement.
 
@@ -260,21 +224,16 @@ End with: "if it doesn't change an action, it's just data."
    - Move from passive dashboards to structured decision support
    - Use cutting-edge technologies to assist decision-making
 
-::: {.notes}
-Mirror the term paper section titles and keep this actionable.
-Bridge to your personal values: challenge assumptions, but keep decisions auditable.
-:::
-
 ## Process Reflections & Learning from this course
 
 Through this course, I relized that: 
 
-- Writing is not a easy thing, inputs and ideas are the pre-requisite
-- Resources and support from the instructor and university were critical to our learning and growth
-- The really important knowledge might not come from the slides, it is from the discussions and observations with others
-- Industry knowledge is not always right; it's better to understand the theory and principles behind the practice, and then make your own judgment
-- Dare to challenge the status quo, which is not reasonable
-- Don't just upgrade your engine, focus on the target, and notice the environment
+1. Writing is not a easy thing, inputs and ideas are the pre-requisite
+1. Resources and support from the instructor and university were critical to our learning and growth
+1. The really important knowledge might not come from the slides, it is from the discussions and observations with others
+1. Industry knowledge is not always right; it's better to understand the theory and principles behind the practice, and then make your own judgment
+1. Dare to challenge the status quo, which is not reasonable
+1. Don't just upgrade your engine, focus on the target, and notice the environment
 
 ## Closing
 
