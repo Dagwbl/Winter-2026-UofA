@@ -1,0 +1,42 @@
+% UofA color tokens 
+\definecolor{UAGreen}{HTML}{275d38}
+\definecolor{UAGold}{HTML}{bfa100}
+
+% Beamer
+\setbeamercolor{palette primary}{bg=UAGreen, fg=white}
+\setbeamercolor{palette secondary}{bg=UAGold, fg=white}
+\setbeamercolor{palette tertiary}{bg=UAGreen!80, fg=white}
+\setbeamercolor{structure}{fg=UAGreen!90}
+\setbeamercolor{multicol}{bg=UAGreen!10, fg=UAGreen}
+
+\logo{\includegraphics[height=1.5cm]{../../Assets/logo/UA_Engineering_logo.png}}
+
+\usepackage{caption}
+\usepackage{svg}
+\setbeamerfont{caption}{size=\tiny}
+\setbeamerfont{caption name}{size=\tiny}
+
+\setbeamerfont{footnote}{size=\tiny}
+
+\setbeamertemplate{footline}{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber{}\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\newcommand{\smallnotes}[1]{%
+  \begin{minipage}{\linewidth}%
+  \color{gray}\tiny#1%
+  \end{minipage}%
+}
+

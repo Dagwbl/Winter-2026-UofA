@@ -1,0 +1,111 @@
+<svg viewBox="0 0 800 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Define gradients for professional look -->
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f8f9fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Circle gradients -->
+    <radialGradient id="grad1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#2E86AB;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#2E86AB;stop-opacity:0.05" />
+    </radialGradient>
+    
+    <radialGradient id="grad2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#A23B72;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#A23B72;stop-opacity:0.05" />
+    </radialGradient>
+    
+    <radialGradient id="grad3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#F18F01;stop-opacity:0.15" />
+      <stop offset="100%" style="stop-color:#F18F01;stop-opacity:0.05" />
+    </radialGradient>
+    
+    <!-- Intersection highlight gradient -->
+    <radialGradient id="intersectionGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFD93D;stop-opacity:0.35" />
+      <stop offset="100%" style="stop-color:#FFD93D;stop-opacity:0.15" />
+    </radialGradient>
+    
+    <!-- Shadow filter -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1" dy="1" stdDeviation="2" flood-opacity="0.08" />
+    </filter>
+    
+    <!-- Glow filter for intersection -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="800" height="700" fill="url(#bgGradient)"/>
+
+  <!-- Title -->
+  <text x="400" y="45" font-size="28" font-weight="600" text-anchor="middle" fill="#1a1a1a" font-family="Georgia, serif">
+    Research Motivation
+  </text>
+
+  <!-- Left Circle (My Interests) -->
+  <circle cx="280" cy="340" r="140" fill="url(#grad1)" stroke="#2E86AB" stroke-width="2.5" filter="url(#shadow)"/>
+
+  <!-- Right Circle (Group Advantages) -->
+  <circle cx="520" cy="340" r="140" fill="url(#grad2)" stroke="#A23B72" stroke-width="2.5" filter="url(#shadow)"/>
+
+  <!-- Bottom Circle (Department Background) -->
+  <circle cx="400" cy="480" r="140" fill="url(#grad3)" stroke="#F18F01" stroke-width="2.5" filter="url(#shadow)"/>
+
+  <!-- Intersection Highlight Area -->
+  <ellipse cx="400" cy="365" rx="65" ry="70" fill="url(#intersectionGrad)" stroke="none" filter="url(#glow)"/>
+
+  <!-- Text inside Left Circle -->
+  <text x="200" y="310" font-size="16" font-weight="700" text-anchor="middle" fill="#1a1a1a" font-family="Arial, sans-serif" letter-spacing="0.3">
+    My Interests
+  </text>
+  <text x="200" y="330" font-size="13" text-anchor="middle" fill="#2E86AB" font-family="Georgia, serif" font-style="italic">
+    Personal
+  </text>
+  <text x="200" y="345" font-size="13" text-anchor="middle" fill="#2E86AB" font-family="Georgia, serif" font-style="italic">
+    Research Goals
+  </text>
+
+  <!-- Text inside Right Circle -->
+  <text x="600" y="310" font-size="16" font-weight="700" text-anchor="middle" fill="#1a1a1a" font-family="Arial, sans-serif" letter-spacing="0.3">
+    Group Expertise
+  </text>
+  <text x="600" y="330" font-size="13" text-anchor="middle" fill="#A23B72" font-family="Georgia, serif" font-style="italic">
+    Collaborative
+  </text>
+  <text x="600" y="345" font-size="13" text-anchor="middle" fill="#A23B72" font-family="Georgia, serif" font-style="italic">
+    Strengths
+  </text>
+
+  <!-- Text inside Bottom Circle -->
+  <text x="400" y="555" font-size="16" font-weight="700" text-anchor="middle" fill="#1a1a1a" font-family="Arial, sans-serif" letter-spacing="0.3">
+    Department
+  </text>
+  <text x="400" y="575" font-size="13" text-anchor="middle" fill="#F18F01" font-family="Georgia, serif" font-style="italic">
+    Background &amp;</text>
+  <text x="400" y="590" font-size="13" text-anchor="middle" fill="#F18F01" font-family="Georgia, serif" font-style="italic">
+    Resources
+  </text>
+
+  <!-- Center (all three) - Topic -->
+  <circle cx="400" cy="350" r="75" fill="none" stroke="#1a1a1a" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.3"/>
+  
+  <text x="400" y="330" font-size="15" font-weight="700" text-anchor="middle" fill="#1a1a1a" font-family="Georgia, serif" letter-spacing="0.5">
+    Sensing Technologies
+  </text>
+  <text x="400" y="350" font-size="15" font-weight="700" text-anchor="middle" fill="#1a1a1a" font-family="Georgia, serif" letter-spacing="0.5">
+    for Cementitious
+  </text>
+  <text x="400" y="370" font-size="15" font-weight="700" text-anchor="middle" fill="#1a1a1a" font-family="Georgia, serif" letter-spacing="0.5">
+    Ground Support
+  </text>
+</svg>
+

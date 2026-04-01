@@ -1,0 +1,282 @@
+---
+title: "Final Presentation (MIN E 630)"
+subtitle: "Underground Mining and Bulk Materials Handling"
+shorttitle: "Final Presentation"
+institute: "University of Alberta"
+format: 
+  revealjs:
+    logo: Assets/logo/UA_Logo_Green_RGB.png
+    footer: "MIN E 630: Underground Mining and Bulk Materials Handling"
+    theme: "white"
+    slide-number: true
+    center: true
+    margin: 0.06
+    minScale: 0.2
+    maxScale: 1.4
+    progress: true
+    transition: fade
+  clean-typst:
+    toc: false
+    number-sections: true
+  beamer: 
+    aspectratio: 169
+    theme: EastLansing
+    fonttheme: professionalfonts
+    innertheme: circles
+    keep-tex: false
+    use-rsvg-convert: true
+    pdf-engine-opts: 
+      - "-shell-escape"
+    number-sections: false
+    section-titles: false
+    incremental: false
+    fontsize: 12pt
+    mainfont: "Times New Roman"
+    slide-level: 3
+    toc: false
+    # toc-depth: 1
+    outertheme: infolines
+    # navigation: horizontal
+    include-in-header: 
+      - preamble.tex
+author:
+  - name: Jinpeng Zhu
+    email: jinpeng6@ualberta.com
+    affiliations: "Department of Civil and Environmental Engineering"
+    instructor: Wei Victor Liu
+date: today
+date-format: long
+# brand:
+#   typography: 
+#     fonts: 
+#       - family: Roboto
+#         weight: [100, 200, 300, 400, 500, 600, 700]
+#         style: [normal, italic]
+#         source: google
+#     base: Roboto
+#     headings: Roboto
+css: ./assets/styles.css
+bibliography: ../../references.bib
+---
+# MIN E 630: Underground Mining and Bulk Materials Handling
+
+## Agenda {.title-slide}
+1. Term paper: motivation, framing, and key takeaways
+2. Beyond the paper: learning from writing and from this course
+3. Insights and gains from this course
+
+### About Jinpeng Zhu
+
+- Graduate student (Civil and Environmental Engineering)
+- Interest: sensing + underground mining+ decision-making
+- Focus today: lifecycle-oriented sensing for cementitious ground support
+
+::: {.notes}
+15 min target:
+- ~9 min term paper (high-level)
+- ~5 min personal reflection and values
+- ~1 min Q&A transition
+:::
+
+## Background and motivation
+
+**Term paper title**: Sensing technologies for cementitious ground support systems in underground mining: advances, challenges, and future perspectives
+
+![The location of my term paper](./Assets/venn_diagram.svg){#fig-term-paper-location width=30%}
+
+::: {.notes}
+Main message: Cementitious ground support is critical, but we are information-poor underground.
+The paper is a structured way to ask: what can we measure across the lifecycle that actually changes decisions?
+:::
+
+### Cementitious support is everywhere {.smaller}
+
+::: columns
+::: column
+**Where it appears**
+
+::: {layout-ncol=2}
+![Shotcrete (drifts, intersections)](./Assets/ca-voisey-bay-mine-sika-01936081.png){#fig-support-shotcrete width=100% height=30%}
+
+![Cast-in-place linings (shafts, chambers)](./Assets/SQUARE-20190302_104952-2015MUM-%C3%9825_-shaft-form-1024x1024.jpg){#fig-support-cast-lining width=100% height=30%}
+
+![Cemented backfill (stopes)](./Assets/2026-03-30-11-11-25.png){#fig-support-cemented-backfill width=100% height=30%}
+
+![Grouted bolts/cables](./Assets/Usgsrockbolt.jpg){#fig-support-grouted-bolts width=100% height=30%}
+
+:::
+:::
+
+::: column
+**Why it is hard to manage**
+
+- Performance changes with time
+- Coupled hazards environmental (stress, water, seismicity, blasting)
+- Limited visibility and limited verification  
+
+
+
+
+::: {style="font-size: 0.5em; color: gray;"}
+\tiny
+\color{gray}
+
+Image sources:  
+@fig-support-shotcrete source: https://can.sika.com/en/construction/shotcrete-tunnelingmining.html  
+@fig-support-cast-lining source: https://everestconstructionforms.com/access-mining-shafts/  
+@fig-support-cemented-backfill source: https://can.sika.com/en/construction/shotcrete-tunnelingmining/mine-backfillingmbfproducts.html  
+@fig-support-grouted-bolts source: https://upload.wikimedia.org/wikipedia/commons/b/b9/Usgsrockbolt.jpg  
+
+\normalcolor
+:::
+
+:::
+:::
+
+
+
+::: {.notes}
+Keep it practical: these materials directly control re-entry, rehabilitation, and production continuity.
+:::
+
+## Key message and contribution
+
+The excavation process of underground mining includes many complex procedures, harsh environments, and low visibility, so sensing technologies are necessary for improving productivity and safety.
+
+This paper:
+
+- Frames cementitious ground support sensing across five lifecycle phases
+- Links physical variables and sensing functions to operational decisions
+- Discuss why system integration (data transfer, fusion, analysis, and decision-making) is the bottleneck
+
+::: {.notes}
+Say it once, then move on.
+:::
+
+## Lifecycle Framing: Lifecycle-oriented questions {.smaller}
+
+::: columns
+::: column
+1. Phase I - hours to days
+    * When can we re-enter safely?
+    * Did we place it well (thickness/coverage)?
+2. Phase II - days to weeks
+    * Is it carrying strength as expected?
+    * Are we seeing early cracking or interface issues?
+3. Phase III - months to years
+    * Is it degrading (creep, corrosion, cracking)?
+    * When should we maintain, reinforce, or reassess capacity?
+    :::
+
+::: column
+4. _Phase IV - Dynamic events (blasting/seismic)_
+    * Can the dynamic events or harzards be detected?
+    * Can we know what has changed due to these events?
+5. _Phase V - Post-event assessment (inspection window)_
+    * What changed (geometry, cracking, hidden defects)?
+    * Repair, reinforce, or abandon?
+    :::
+    :::
+
+::: {.notes}
+Keep this slide decision-first and phase-based; avoid listing instruments.
+:::
+
+## Lifecycle challenges (map) {.stretch .compact}
+
+![Lifecycle map (variables -> sensing -> decisions)](./Assets/PhysicalVariable-2026-03-30-174441.png){#fig-lifecycle width=85%}
+
+
+::: {.notes}
+Use this to visually anchor the five phases and the cross-cutting constraints.
+Do not read every pill; point to 2-3 examples.
+:::
+
+
+## Relationship between sensing and support principles 
+
+::: {layout-ncol=2}
+![Cementitious systems: shotcrete wet-mix process](Assets/term_paper/2026-03-13-12-07-36.png){#fig-tech-map-shotcrete width=48%}
+
+![Cementitious systems: 3D printing schematic](Assets/term_paper/2026-03-13-13-33-18.png){#fig-tech-map-3d-print width=48%}
+
+![Grouted bolts mechanics: rock-anchorage interface schematic](Assets/term_paper/2026-03-13-16-03-53.png){#fig-tech-map-rock-anchorage width=48%}
+
+![Grouted bolts mechanics: failure envelope before and after grouting](Assets/term_paper/2026-03-13-16-05-27.png){#fig-tech-map-failure-envelope width=48%}
+
+:::
+
+::: {.notes}
+There are two key point here, one is scene connection, common things
+anther is decision-making basis
+:::
+
+## Technology selection (From sensor to decision) {.stretch .compact}
+
+![Technology selection workflow (goals -> constraints -> screening -> pilot)](Assets/5-phase.png){#fig-selection width=85%}
+
+- Thermal / maturity (temperature, early strength proxy)
+- Mechanical response (stress/strain)
+- Deformation (convergence, displacement)
+- Damage / wave-based (AE, UPV, microseismic)
+- Durability / chemical (corrosion, resistivity)
+- Geometry (LiDAR, photogrammetry)
+
+::: {.notes}
+Key point: pick functions based on decisions, not based on what is "cool".
+Stress: the value is not the sensor, it is the decision loop.
+:::
+
+## System Integration: communication, fusion, analysis, and action
+
+![Comparison of wireless communication systems](Assets/term_paper/2026-03-12-15-45-30.png){#fig-data-transfer-system height=75%}
+
+- The communcation system is the core of sensing system
+- Easy to deploy and install, with strong penetration, compatibility and anti-interference ability
+- Currently, wire cable is widely used in underground mining, only for personnel positioning
+
+::: {.notes}
+Walk left to right in ~30 seconds.
+Use this as the bridge from visuals to integration.
+End with: "if it doesn't change an action, it's just data."
+:::
+
+## Why integration is the bottleneck
+
+- Underground comms are constrained (geometry, obstacle, no GPS)
+- Data is heterogeneous (multi-modal: discrete, ascoutic, visual, etc)
+- Data fusion analysis, and decision-making are based on comprehensive understanding of the system, not just anysigle sensor, or single measurement.
+
+## Challenges and future research directions {.smaller}
+
+1. Sensor longevity and robustness
+   - Sensors must survive harsh environment, such as water, blasting vibration, installation damage
+   - Long-term reliability in shotcrete, backfill, and grouted bolts is still a bottleneck
+2. Transition from monitoring to active control
+   - Most sites collect data but still decide by habit or expierence
+   - We need more smarter models and auditable rules that connect and hybird indicators to actions
+   - The industry don't have motivation to invest the sensing system; they only do what the regulations require
+3. Towards self-assessment and self-decision
+   - Move from passive dashboards to structured decision support
+   - Use cutting-edge technologies to assist decision-making
+
+::: {.notes}
+Mirror the term paper section titles and keep this actionable.
+Bridge to your personal values: challenge assumptions, but keep decisions auditable.
+:::
+
+## Process Reflections & Learning from this course
+
+Through this course, I relized that: 
+
+- Writing is not a easy thing, inputs and ideas are the pre-requisite
+- Resources and support from the instructor and university were critical to our learning and growth
+- The really important knowledge might not come from the slides, it is from the discussions and observations with others
+- Industry knowledge is not always right; it's better to understand the theory and principles behind the practice, and then make your own judgment
+- Dare to challenge the status quo, which is not reasonable
+- Don't just upgrade your engine, focus on the target, and notice the environment
+
+## Closing
+
+
+**Thank you. Questions?**
