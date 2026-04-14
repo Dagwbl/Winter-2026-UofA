@@ -2,7 +2,7 @@
 title: "Final Presentation (MIN E 630)"
 subtitle: "Underground Mining and Bulk Materials Handling"
 shorttitle: "MIN E 630 | Prof. Wei (Victor) Liu"
-institute: "University of Alberta"
+institute: "Department of Civil and Environmental Engineering"
 format: 
   revealjs:
     logo: Assets/logo/UA_Logo_Green_RGB.png
@@ -20,6 +20,7 @@ format:
     number-sections: true
   beamer: 
     urlcolor: blue
+    linkcolor: .
     aspectratio: 169
     theme: EastLansing
     fonttheme: professionalfonts
@@ -43,7 +44,9 @@ format:
 author:
   - name: Jinpeng Zhu
     email: jinpeng6@ualberta.com
-    affiliations: "Department of Civil and Environmental Engineering"
+    affiliations: |
+      Wei Victor Liu
+      Department of Civil and Environmental Engineering
     instructor: Wei Victor Liu
 date: 2026-04-02
 date-format: long
@@ -62,14 +65,13 @@ bibliography: ../../references.bib
 # Underground Mining and Bulk Materials Handling {.plain}
 
 ## Agenda
-1. Term paper: motivation, framing, and key takeaways
-2. Beyond the paper: learning from writing and from this course
-3. Insights and gains from this course
+1. Term paper: motivation, framing, and key takeaways, etc
+2. Insights and gains from this course
 
 ### About Jinpeng Zhu
 
 - Graduate student (Civil and Environmental Engineering)
-- Interest: sensing + underground mining+ decision-making
+- Interest: sensing + underground mining+ cementitious material
 - Focus today: lifecycle-oriented sensing for cementitious ground support
 
 ## Background and motivation
@@ -101,7 +103,7 @@ bibliography: ../../references.bib
 
 - Performance changes with time
 - Coupled hazards environmental (stress, water, seismicity, blasting)
-- Limited visibility and limited verification  
+- Limited visibility and hard communication 
 
 
 ::: {style="font-size: 0.5em; color: gray;"}
@@ -158,13 +160,13 @@ This paper:
 ## Relationship between sensing and support principles 
 
 ::: {layout-ncol=2}
-![Cementitious systems: shotcrete wet-mix process](Assets/term_paper/2026-03-13-12-07-36.png){#fig-tech-map-shotcrete width=48%}
+![Cementitious systems: shotcrete wet-mix process [@heidarnezhadShotcreteBased3D2022]](Assets/term_paper/2026-03-13-12-07-36.png){#fig-tech-map-shotcrete width=48%}
 
-![Cementitious systems: 3D printing schematic](Assets/term_paper/2026-03-13-13-33-18.png){#fig-tech-map-3d-print width=48%}
+![Cementitious systems: 3D printing schematic [@zhangReviewCurrentProgress2019]](Assets/term_paper/2026-03-13-13-33-18.png){#fig-tech-map-3d-print width=48%}
 
-![Grouted bolts mechanics: rock-anchorage interface schematic](Assets/term_paper/2026-03-13-16-03-53.png){#fig-tech-map-rock-anchorage width=48%}
+![Grouted bolts mechanics: rock-anchorage interface schematic [@wangStudyEngineeringApplication2019]](Assets/term_paper/2026-03-13-16-03-53.png){#fig-tech-map-rock-anchorage width=48%}
 
-![Grouted bolts mechanics: failure envelope before and after grouting](Assets/term_paper/2026-03-13-16-05-27.png){#fig-tech-map-failure-envelope width=48%}
+![Grouted bolts mechanics: failure envelope before and after grouting [@wangStudyEngineeringApplication2019]](Assets/term_paper/2026-03-13-16-05-27.png){#fig-tech-map-failure-envelope width=48%}
 
 :::
 
@@ -199,7 +201,7 @@ Two short video: [Invisible dinosar](https://www.instagram.com/reel/DFNV9uiMTuD/
 
 ## System Integration: communication, fusion, analysis, and action
 
-![Comparison of wireless communication systems](Assets/term_paper/2026-03-12-15-45-30.png){#fig-data-transfer-system height=75%}
+![Comparison of wireless communication systems [@ngwenyamaRecentAdvancesChallenges2025]](Assets/term_paper/2026-03-12-15-45-30.png){#fig-data-transfer-system height=75%}
 
 - The communcation system is the core of sensing system
 - Easy to deploy and install, with strong penetration, compatibility and anti-interference ability
@@ -218,10 +220,10 @@ Two short video: [Invisible dinosar](https://www.instagram.com/reel/DFNV9uiMTuD/
    - Long-term reliability in shotcrete, backfill, and grouted bolts is still a bottleneck
 2. Transition from monitoring to active control
    - Most sites collect data but still decide by habit or expierence
-   - We need more smarter models and auditable rules that connect and hybird indicators to actions
+   - We need more smarter algorithms and more general rules that connect and combine indicators to actions
    - The industry don't have motivation to invest the sensing system; they only do what the regulations require
 3. Towards self-assessment and self-decision
-   - Move from passive dashboards to structured decision support
+   - Move from passive monitoring to self-assessment
    - Use cutting-edge technologies to assist decision-making
 
 ## Process Reflections & Learning from this course
@@ -229,8 +231,7 @@ Two short video: [Invisible dinosar](https://www.instagram.com/reel/DFNV9uiMTuD/
 Through this course, I relized that: 
 
 1. Writing is not a easy thing, inputs and ideas are the pre-requisite
-1. Resources and support from the instructor and university were critical to our learning and growth
-1. The really important knowledge might not come from the slides, it is from the discussions and observations with others
+2. The really important knowledge might not come from the slides, it is from the discussions and observations with others
 1. Industry knowledge is not always right; it's better to understand the theory and principles behind the practice, and then make your own judgment
 1. Dare to challenge the status quo, which is not reasonable
 1. Don't just upgrade your engine, focus on the target, and notice the environment
@@ -239,3 +240,9 @@ Through this course, I relized that:
 
 
 **Thank you. Questions?**
+
+#### References
+\tiny
+
+::: {#refs}
+:::
