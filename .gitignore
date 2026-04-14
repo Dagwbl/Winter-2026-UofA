@@ -12,3 +12,8 @@ index.pdf
 *.dwl
 *.dwl2
 ~$*.docx
+/MIN-E-630/Presentation/.quarto/typst
+/.sisyphus/drafts
+.sisyphus/boulder.json
+.sisyphus/plans/presentation-creation.md
+.sisyphus/
