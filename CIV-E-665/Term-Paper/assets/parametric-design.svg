@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" font-family="Arial, sans-serif">
+    <defs>
+        <style>
+            .grid-line { stroke: #000; stroke-width: 2; }
+            .concrete { fill: #d1d5d8; stroke: #333; stroke-width: 2; }
+            .hot-bound { stroke: red; stroke-width: 6; }
+            .cold-bound { stroke: #00b0f0; stroke-width: 6; }
+            .text-title { font-size: 18px; font-weight: bold; text-anchor: middle; }
+            .text-label { font-size: 14px; text-anchor: middle; font-style: italic; }
+            .text-case { font-size: 14px; font-weight: bold; }
+        </style>
+    </defs>
+
+    <line x1="150" y1="0" x2="150" y2="700" class="grid-line" />
+    <line x1="500" y1="0" x2="500" y2="700" class="grid-line" />
+    <line x1="850" y1="0" x2="850" y2="700" class="grid-line" />
+    
+    <line x1="0" y1="50" x2="1200" y2="50" class="grid-line" />
+    <line x1="0" y1="266" x2="1200" y2="266" class="grid-line" />
+    <line x1="0" y1="483" x2="1200" y2="483" class="grid-line" />
+
+    <text x="325" y="35" class="text-title">Stage 1 (a) - Single Planar</text>
+    <text x="675" y="35" class="text-title">Stage 2 (b) - Double Planar</text>
+    <text x="1025" y="35" class="text-title">Stage 3 (c) - Tortuous</text>
+
+    <text x="75" y="150" class="text-title">Aperture</text>
+    <text x="75" y="175" class="text-title">D = 0.5 mm</text>
+    <text x="75" y="366" class="text-title">Aperture</text>
+    <text x="75" y="391" class="text-title">D = 1.5 mm</text>
+    <text x="75" y="583" class="text-title">Aperture</text>
+    <text x="75" y="608" class="text-title">D = 5.0 mm</text>
+
+    <g transform="translate(180, 80)">
+        <rect x="0" y="0" width="140" height="100" class="concrete" />
+        <rect x="145" y="0" width="140" height="100" class="concrete" />
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="285" y1="0" x2="285" y2="100" class="cold-bound" />
+        <text x="142.5" y="-10" class="text-label">d = 0.5</text>
+        <text x="10" y="90" class="text-case">Case ID: S1-D05</text>
+    </g>
+
+    <g transform="translate(530, 80)">
+        <rect x="0" y="0" width="90" height="100" class="concrete" />
+        <rect x="95" y="0" width="90" height="100" class="concrete" />
+        <rect x="190" y="0" width="90" height="100" class="concrete" />
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="280" y1="0" x2="280" y2="100" class="cold-bound" />
+        <text x="92.5" y="-10" class="text-label">d = 0.5</text>
+        <text x="187.5" y="-10" class="text-label">d = 0.5</text>
+        <text x="10" y="90" class="text-case">Case ID: S2-D05</text>
+    </g>
+
+    <g transform="translate(880, 80)">
+        <polygon points="0,0 135,0 150,25 120,50 150,75 135,100 0,100" class="concrete" />
+        <polygon points="145,0 285,0 285,100 145,100 160,75 130,50 160,25" class="concrete" />
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="285" y1="0" x2="285" y2="100" class="cold-bound" />
+        <text x="142.5" y="-10" class="text-label">d = 0.5</text>
+        <text x="10" y="90" class="text-case">Case ID: S3-D05</text>
+    </g>
+
+
+    <g transform="translate(180, 296)">
+        <rect x="0" y="0" width="135" height="100" class="concrete" />
+        <rect x="150" y="0" width="135" height="100" class="concrete" />
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="285" y1="0" x2="285" y2="100" class="cold-bound" />
+        <text x="142.5" y="-10" class="text-label">d = 1.5</text>
+        <text x="10" y="90" class="text-case">Case ID: S1-D15</text>
+    </g>
+
+    <g transform="translate(530, 296)">
+        <rect x="0" y="0" width="82" height="100" class="concrete" />
+        <rect x="97" y="0" width="82" height="100" class="concrete" />
+        <rect x="194" y="0" width="86" height="100" class="concrete" />
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="280" y1="0" x2="280" y2="100" class="cold-bound" />
+        <text x="89.5" y="-10" class="text-label">d = 1.5</text>
+        <text x="186.5" y="-10" class="text-label">d = 1.5</text>
+        <text x="10" y="90" class="text-case">Case ID: S2-D15</text>
+    </g>
+
+    <g transform="translate(880, 296)">
+        <polygon points="0,0 80,0 95,25 65,50 95,75 80,100 0,100" class="concrete" />
+        <polygon points="90,0 170,0 185,25 155,50 185,75 170,100 90,100 105,75 75,50 105,25" class="concrete" />
+        <polygon points="180,0 285,0 285,100 180,100 195,75 165,50 195,25" class="concrete" />
+        
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="285" y1="0" x2="285" y2="100" class="cold-bound" />
+        <text x="85" y="-10" class="text-label">d = 1.5</text>
+        <text x="175" y="-10" class="text-label">d = 1.5</text>
+        <text x="10" y="90" class="text-case">Case ID: S3-D15</text>
+    </g>
+
+
+    <g transform="translate(180, 513)">
+        <rect x="0" y="0" width="120" height="100" class="concrete" />
+        <rect x="165" y="0" width="120" height="100" class="concrete" />
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="285" y1="0" x2="285" y2="100" class="cold-bound" />
+        <text x="142.5" y="-10" class="text-label">d = 5.0</text>
+        <text x="10" y="90" class="text-case">Case ID: S1-D50</text>
+    </g>
+
+    <g transform="translate(530, 513)">
+        <rect x="0" y="0" width="65" height="100" class="concrete" />
+        <rect x="110" y="0" width="65" height="100" class="concrete" />
+        <rect x="220" y="0" width="60" height="100" class="concrete" />
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="280" y1="0" x2="280" y2="100" class="cold-bound" />
+        <text x="87.5" y="-10" class="text-label">d = 5.0</text>
+        <text x="197.5" y="-10" class="text-label">d = 5.0</text>
+        <text x="10" y="90" class="text-case">Case ID: S2-D50</text>
+    </g>
+
+    <g transform="translate(880, 513)">
+        <polygon points="0,0 115,0 130,25 100,50 130,75 115,100 0,100" class="concrete" />
+        <polygon points="160,0 285,0 285,100 160,100 175,75 145,50 175,25" class="concrete" />
+        <line x1="0" y1="0" x2="0" y2="100" class="hot-bound" />
+        <line x1="285" y1="0" x2="285" y2="100" class="cold-bound" />
+        <text x="142.5" y="-10" class="text-label">d = 5.0</text>
+        <text x="10" y="90" class="text-case">Case ID: S3-D50</text>
+    </g>
+
+</svg>

@@ -1,0 +1,287 @@
+---
+title: "Heat Transfer Across Concrete Cracks: Quantifying Thermal Resistance Using Abaqus"
+author: Jinpeng Zhu
+student-id: 1907843
+date: today
+format:
+  pdf:
+    pagesize: letter
+    fontsize: 11pt
+    linestretch: 1.5
+    margin:
+      top: 1in
+      bottom: 1in
+      left: 1in
+      right: 1in
+    number-sections: true
+    fig-pos: H
+  html:
+    toc: true
+    number-sections: true
+bibliography: ../../references.bib
+bibliographystyle: chicago-author-date
+abstract: ""
+
+---
+
+# Abstract
+
+
+
+# Introduction
+
+## Background
+
+Cracking is an inherent and ubiquitous phenomenon in concrete structures, arising from a multitude of mechanisms including plastic shrinkage during early ages, drying shrinkage over service life, thermal gradients induced by hydration heat or environmental exposure, and mechanical loading from imposed deformations or external forces.
+
+The presence of cracks in concrete has significant implications beyond structural integrity. From a thermal perspective, cracks interrupt the continuous solid conduction path and introduce an air gap that presents substantially higher thermal resistance. This thermal barrier effect becomes particularly relevant in applications including underground structures where temperature gradients drive heat flow, cold-region infrastructure where insulation performance is critical, thermal protection systems, and subsurface energy applications such as geothermal heat exchangers and nuclear waste repositories.
+
+A crack in concrete can be characterized primarily by two geometric parameters: the aperture (or opening width) $d$, and the tortuosity $\tau$, which describes the deviation of the crack path from a planar configuration. A planar crack follows a straight line through the material, while a tortuous crack follows a more complex path that increases the effective length of the thermal conduction route. The magnitude of the thermal barrier effect depends critically on these parameters.
+
+## Motivation
+
+Traditional approaches to accounting for cracks in thermal analysis of concrete structures typically employ homogenized effective thermal conductivity values, where the cracked material is represented by a reduced conductivity averaged over the representative volume. While computationally convenient, these homogenization methods lack direct verification at the crack scale and may not capture the localized thermal resistance effects that depend on aperture and geometry in a predictable manner.
+
+Furthermore, the thermal resistance across a crack gap is not simply proportional to the aperture, particularly when radiation heat transfer across the gap becomes significant, when the crack is tortuous, or when multiple cracks interact thermally. A systematic, verified methodology for predicting thermal resistance at the crack level would enable more accurate predictions of heat transfer in concrete structures.
+
+The finite element method (FEM) provides a natural framework for this investigation, as it can represent arbitrary crack geometries explicitly and capture the coupled conduction through the solid and gap regions. Abaqus, as a widely-used commercial FEM package with robust heat transfer analysis capabilities, offers the necessary modeling flexibility for this parametric study.
+
+## Objectives and Project Scope
+
+The primary objective of this study is to develop and validate a finite element modeling workflow using Abaqus to predict the thermal resistance across concrete cracks under steady-state conditions. The specific objectives are: 1) Develop a verified Abaqus thermal model for heat transfer through cracked concrete; 2) Investigate the effect of crack aperture on equivalent thermal resistance; 3) Compare thermal resistance between planar and tortuous crack geometries; 4) Provide experimental and analytical validation of the numerical results.
+
+The scope of this study is limited to: 1) Two-dimensional steady-state thermal analysis; 1) Single and multiple planar cracks with uniform aperture; 1) Tortuous cracks with sinusoidal geometry; 1) Aperture range of 0.5 to 5.0 mm; 1) Conduction-dominated heat transfer (convection and radiation considered qualitatively); 1) Isotropic material properties for concrete and air. This study does not address transient thermal effects, three-dimensional crack geometries, or coupled hygro-thermal analysis.
+
+# Methods
+
+## Problem's Domain
+
+### Main Components
+
+The physical system under investigation consists of a rectangular concrete domain containing one or more cracks, as illustrated in @fig-system-schematic. The domain represents a section of concrete with through-thickness cracking oriented perpendicular to the direction of heat flow.
+
+![Schematic of the cracked concrete domain showing the heat flow direction and crack geometry parameters](assets/system_schematic.svg){#fig-system-schematic width=70%}
+
+The system comprises two primary components: concrete domain and air gap. concrete is a solid region of dimensions $L \times H$ (where $L$ is the length in the heat flow direction and $H$ is the transverse dimension) composed of hardened cement paste and aggregate, treated as a homogeneous isotropic material for this analysis. Air gap (crack) is a void region within the concrete with aperture $d$, filled with air at atmospheric pressure. The gap interrupts solid conduction and forces heat to transfer across the enclosed space. Crack sizes are generally categorized by their width to determine the necessary level of concern or repair. For the purposes of this study, according to @prakashCracksBuildingsTypes2025, three representative crack widths were selected for simulation: 0.5 mm (thin), 1.5 mm (medium), and 5 mm (wide). The concrete dimension is fixed at L = 100 mm, H = 50 mm for conviently comparison.
+
+
+### Simplifying Assumptions
+
+To enable clean verification and parametric study, the following assumptions are adopted:
+
+1. **Steady-state conditions**: The analysis considers only steady-state heat transfer, neglecting transient effects from thermal inertia.
+2. **Conduction-dominated transfer**: Heat transfer through the concrete is by solid conduction only. In the crack gap, heat transfer is assumed to occur primarily by conduction through the air, with radiation considered qualitatively in the discussion.
+3. **Isotropic materials**: Both concrete and air are treated as isotropic materials with constant (temperature-independent) thermal properties.
+4. **Prescribed crack geometry**: The crack aperture $d$ is prescribed geometrically rather than computed from a coupled stress analysis. This decouples the thermal problem from the mechanics of crack formation.
+5. **No internal heat generation**: Neither the concrete nor the air gap generates heat internally.
+6. **Perfect interface contact**: At the concrete-air interface, perfect thermal contact is assumed (no contact resistance beyond the inherent thermal resistance of the air gap).
+7. **One-dimensional far-field heat flow**: The prescribed temperature boundary conditions produce an approximately one-dimensional heat flux in the far field away from crack singularities.
+
+### Geometry and Dimensions
+
+Three geometry configurations are investigated (@fig-geometry-stages):
+
+![The three geometry stages investigated: (a) single planar crack, (b) double planar crack, (c) tortuous crack](./assets/parametric-design.svg){#fig-geometry-stages width=80%}
+
+Stage 1 - Single Planar Crack: One through-crack with uniform aperture $d$, located at mid-length ($x = L/2$).
+Stage 2 - Double Planar Crack: Two parallel through-cracks, each with aperture $d$, symmetrically located at $x = L/3$ and $x = 2L/3$.
+Stage 3 - Tortuous Crack: One through-crack with sinusoidal tortuosity, with the same nominal aperture $d$ but an effective path length $L_{eff} > d$.
+
+The parametric study varies the crack aperture $d$ and the number of cracks $n$, covering the typical range of visible cracks in concrete structures, as shown in the @tbl-parametric-design.
+
+| Case id | n | Crack aperture d | Crack shape | Location |
+| :--- | :--- | :--- | :--- | :--- |
+| **S1-D05** | 1 | 0.5 | Planar | 50 |
+| **S1-D15** | 1 | 1.5 | Planar | 50 |
+| **S1-D50** | 1 | 5.0 | Planar | 50 |
+| **S2-D05** | 2 | 0.5 | Planar | 33.3, 66.7 |
+| **S2-D15** | 2 | 1.5 | Planar | 33.3, 66.7 |
+| **S2-D50** | 2 | 5.0 | Planar | 33.3, 66.7 |
+| **S3-D05** | 1 | 0.5 | Tortuous | 50 |
+| **S3-D15** | 2 | 1.5 | Tortuous | 33.3, 66.7 |
+| **S3-D50** | 1 | 5.0 | Tortuous | 50 |
+
+: Parametric study design for crack aperture and number of cracks {#tbl-parametric-design}
+
+## Material Properties
+
+### Concrete Properties
+
+The thermal properties of hardened concrete are taken from @hassanEvaluationThermophysicalMechanical2023 for typical mix designs. The concrete properties is summarized in @tbl-concrete-properties.
+
+| Property | Symbol | Value | Unit |
+|----------|--------|-------|------|
+| Thermal conductivity | $k_c$ | 0.89 | W/(m·K) |
+| Density | $\rho_c$ | 2250 | kg/m³ |
+| Specific heat | $c_c$ | 560 | J/(kg·K) |
+
+: Thermal properties of concrete used in this study {#tbl-concrete-properties}
+
+The thermal conductivity of concrete depends on the mix proportions, moisture content, and aggregate type. Comparing with normal concrete, the thermal conductivity and specific heat are lower than the latter.
+
+### Air Properties
+
+The air within the crack gap is treated as an ideal gas at atmospheric pressure. The thermal parameters of air are from @AirPropertiesDensity, as shown in @tbl-air-properties.
+
+| Property | Symbol | Value | Unit |
+|----------|--------|-------|------|
+| Thermal conductivity | $k_a$ | 0.02435 | W/(m·K) |
+| Density | $\rho_a$ | 1.208 | kg/m³ |
+| Specific heat | $c_a$ | 1006 | J/(kg·K) |
+
+: Thermal properties of air at 0°C and 1bara {#tbl-air-properties}
+
+## Interactions
+
+### Crack Representation and Interface Treatment
+
+In the finite element model, the crack is represented as a separate region filled with air, allowing explicit resolution of the temperature field within the gap. The crack region is meshed as a distinct part with air properties, sharing nodes at the concrete-air interface. It provides direct access to temperature values within the crack for verification purposes and avoids the complexity of contact definitions for a pure thermal analysis.
+
+At the concrete-air interface, heat transfer occurs by conduction through the air gap. The interface is treated as a perfect thermal connection with no additional contact resistance, meaning that the temperature is continuous across the interface and heat flux is conserved.
+
+## Analysis Procedure
+
+### Analysis Type
+
+A steady-state heat transfer analysis is performed using Abaqus/Standard. The governing equation is the Laplace equation for steady-state temperature distribution:
+
+$$
+\frac{\partial}{\partial x}\left(k \frac{\partial T}{\partial x}\right) + \frac{\partial}{\partial y}\left(k \frac{\partial T}{\partial y}\right) = 0
+$$
+
+### Heat Transfer Mechanism
+
+The analysis employs the _CONDUCT_ functionality for heat conduction through the solid and air regions. Heat flux through the model is computed from the temperature gradients using Fourier's law:
+
+$$
+q = -k \nabla T
+$$
+
+### Thermal Boundary Conditions
+
+Prescribed temperatures are applied to the left and right faces of the domain, The boundary conditions are summarized in @tbl-bc-summary:
+
+| Face | Boundary Condition | Value |
+|------|-------------------|-------|
+| Left ($x = 0$) | Prescribed temperature | $T_h = 40^\circ$C |
+| Right ($x = L$) | Prescribed temperature | $T_c = 0^\circ$C |
+| Top ($y = H$) | Adiabatic (insulated) | $\partial T/\partial n = 0$ |
+| Bottom ($y = 0$) | Adiabatic (insulated) | $\partial T/\partial n = 0$ |
+
+: General boundary conditions. {#tbl-bc-summary}
+
+### Heat Flux Calculation
+
+The total heat flux $Q$ exiting the domain is calculated by integrating the heat flux over the cold face using Abaqus output variables. The average heat flux per unit area $\bar{q}$ is then:
+
+$$
+\bar{q} = \frac{Q}{H \times 1} \quad \text{[W/m}^2\text{]}
+$$
+
+where $H$ is the domain height and the unit depth is assumed for 2D analysis.
+
+## Meshing
+
+### Element Type
+
+The 4-node bilinear heat transfer element (quadrilateral) element is selected for the primary analysis due to its computational efficiency and adequate accuracy for problems without steep thermal gradients. A mesh sensitivity study is conducted to verify convergence.
+
+Todo: Mesh Independence Study
+
+Loading and boundary conditions follow the @tbl-bc-summary.
+
+## Validation method
+
+Compare
+
+# Results
+
+
+## Single Planar Crack (Stage 1)
+
+### Effect of Crack Aperture
+
+
+
+### Thermal Resistance Analysis
+
+
+
+## Double Planar Crack (Stage 2)
+
+### Effect of Aperture on Dual-Crack System
+
+
+
+### Comparison with Single Crack
+
+
+
+## Tortuous Crack (Stage 3)
+
+### Geometry Definition
+
+Todo: how to define the tortuous shape
+
+### Results at Various Apertures
+
+
+
+### Temperature Distribution
+
+Todo: echo to @tbl-parametric-design
+
+# Discussion
+
+## Model Verification
+
+### Comparison with Analytical Solutions
+
+
+
+### Sources of Discrepancy
+
+
+
+## Effect of Crack Aperture
+
+### Quantitative Relationship
+
+
+
+### Physical Interpretation
+
+
+
+## Effect of Crack Geometry (Tortuosity)
+
+### Tortuosity Enhancement
+
+
+
+## Practical Implications
+
+### Implications for Concrete Structures
+
+
+
+### Limitations
+
+
+
+## Recommendations for Future Work
+
+
+
+# Conclusion
+
+This study developed and validated a finite element modeling workflow using Abaqus to predict thermal resistance across concrete cracks under steady-state conditions.
+
+
+
+# References
+
+::: {#refs}
+:::
+
+

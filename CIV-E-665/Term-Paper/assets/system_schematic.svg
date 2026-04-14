@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 450" font-family="Arial, sans-serif">
+    <defs>
+        <linearGradient id="gradLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ff3333" /> <stop offset="100%" stop-color="#ff9933" /> </linearGradient>
+        <linearGradient id="gradRight" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#ffd633" /> <stop offset="100%" stop-color="#3399ff" /> </linearGradient>
+
+        <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#333" />
+        </marker>
+        <marker id="arrow-heat" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M 0 0 L 10 5 L 0 10 z" fill="#d9534f" />
+        </marker>
+    </defs>
+
+    <rect width="850" height="450" fill="#fdfdfd" />
+
+    <rect x="150" y="120" width="250" height="200" fill="url(#gradLeft)" stroke="#333" stroke-width="2" />
+    
+    <rect x="400" y="120" width="40" height="200" fill="#f0f5f9" stroke="#333" stroke-width="1" stroke-dasharray="4" />
+    
+    <rect x="440" y="120" width="250" height="200" fill="url(#gradRight)" stroke="#333" stroke-width="2" />
+
+    <line x1="150" y1="120" x2="150" y2="320" stroke="#ff0000" stroke-width="6" /> <line x1="690" y1="120" x2="690" y2="320" stroke="#007acc" stroke-width="6" /> <line x1="250" y1="60" x2="590" y2="60" stroke="#d9534f" stroke-width="4" marker-end="url(#arrow-heat)" />
+    <text x="420" y="45" font-size="18" font-weight="bold" font-style="italic" fill="#d9534f" text-anchor="middle">Heat Flow (q)</text>
+    
+    <path d="M 180 170 Q 200 150, 220 170 T 260 170" fill="none" stroke="#fff" stroke-width="2" opacity="0.6" marker-end="url(#arrow)" />
+    <path d="M 180 270 Q 200 250, 220 270 T 260 270" fill="none" stroke="#fff" stroke-width="2" opacity="0.6" marker-end="url(#arrow)" />
+    <path d="M 480 170 Q 500 150, 520 170 T 560 170" fill="none" stroke="#fff" stroke-width="2" opacity="0.6" marker-end="url(#arrow)" />
+    <path d="M 480 270 Q 500 250, 520 270 T 560 270" fill="none" stroke="#fff" stroke-width="2" opacity="0.6" marker-end="url(#arrow)" />
+
+    <line x1="150" y1="360" x2="690" y2="360" stroke="#333" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+    <line x1="150" y1="330" x2="150" y2="370" stroke="#333" stroke-width="1" />
+    <line x1="690" y1="330" x2="690" y2="370" stroke="#333" stroke-width="1" />
+    <text x="420" y="385" font-size="18" font-style="italic" text-anchor="middle">Domain Length, L</text>
+
+    <line x1="110" y1="120" x2="110" y2="320" stroke="#333" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+    <line x1="100" y1="120" x2="140" y2="120" stroke="#333" stroke-width="1" />
+    <line x1="100" y1="320" x2="140" y2="320" stroke="#333" stroke-width="1" />
+    <text x="90" y="225" font-size="18" font-style="italic" text-anchor="middle" transform="rotate(-90, 90, 225)">Height, H</text>
+
+    <line x1="150" y1="95" x2="420" y2="95" stroke="#333" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+    <line x1="150" y1="85" x2="150" y2="110" stroke="#333" stroke-width="1" />
+    <line x1="420" y1="85" x2="420" y2="130" stroke="#333" stroke-width="1" stroke-dasharray="2" />
+    <text x="285" y="85" font-size="16" font-style="italic" text-anchor="middle">Location, x</text>
+
+    <line x1="400" y1="140" x2="440" y2="140" stroke="#333" stroke-width="1.5" marker-start="url(#arrow)" marker-end="url(#arrow)" />
+    <text x="420" y="160" font-size="16" font-style="italic" text-anchor="middle">d</text>
+
+    <text x="135" y="225" font-size="20" font-weight="bold" fill="#ff0000" text-anchor="end">T<tspan baseline-shift="sub" font-size="14">h</tspan></text>
+    <text x="705" y="225" font-size="20" font-weight="bold" fill="#007acc" text-anchor="start">T<tspan baseline-shift="sub" font-size="14">c</tspan></text>
+
+    <text x="275" y="225" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Concrete Domain</text>
+    <text x="565" y="225" font-size="16" font-weight="bold" fill="#fff" text-anchor="middle">Concrete Domain</text>
+    <text x="420" y="280" font-size="14" fill="#555" text-anchor="middle" transform="rotate(-90, 420, 280)">Crack (Air)</text>
+</svg>

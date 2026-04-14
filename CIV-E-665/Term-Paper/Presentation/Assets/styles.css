@@ -1,0 +1,48 @@
+/* RevealJS tweaks for a 15-min deck: keep content on-screen.
+   Prefer small, global adjustments over per-slide hacks. */
+
+/* Slightly smaller base font, but keep headings readable. */
+.reveal {
+  font-size: 30px;
+}
+
+.reveal h1 { font-size: 1.7em; }
+.reveal h2 { font-size: 1.25em; }
+.reveal h3 { font-size: 1.05em; }
+
+/* Make tables fit and wrap instead of overflowing. */
+.reveal table {
+  font-size: 0.72em;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.reveal th,
+.reveal td {
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+}
+
+/* A class for slides that still need to be tighter (used on the table slide). */
+section.compact {
+  font-size: 0.88em;
+}
+
+section.compact table {
+  font-size: 0.68em;
+}
+
+/* Avoid large vertical gaps in lists. */
+.reveal ul,
+.reveal ol {
+  margin: 0.4em 0 0.4em 1.1em;
+}
+
+.reveal li {
+  margin: 0.18em 0;
+}
+
+.reveal .smaller .grey {
+  color: #888;
+  font-size: 0.5em;
+}
